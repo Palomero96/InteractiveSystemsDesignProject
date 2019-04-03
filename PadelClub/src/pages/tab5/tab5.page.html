@@ -1,9 +1,44 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Five
+      Ajustes
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <ion-card> <!--Datos del perfil -->
+
+      <ion-card-header>
+          <ion-card-title>Mi Perfil</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+                        <!-- Cuando este la informacion habra que añadir los valores que se pongan-->
+
+            <ion-label>Nombre:</ion-label>  <!--Conectar con firebase: Hará falta ionitem o algo --><br>
+            <ion-label>Apellidos:</ion-label><br>
+            <ion-label>Edad:</ion-label><br>
+            <ion-label>Nivel:</ion-label><br>
+            <ion-label>Rol:</ion-label><br>
+            <ion-label>Email:</ion-label><br>
+          
+        </ion-card-content>
+  </ion-card>
+  
+
+<!-- Ajustes-->
+<ion-card>
+  <ion-card-header>
+      <ion-card-title>Ajustes</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-item>
+      <!--Por implementar (parte avanzada) -->
+      <ion-label>Notificaciones</ion-label>
+      <ion-checkbox checked="false"  color="primary"></ion-checkbox>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
+
+
+</ion-content>

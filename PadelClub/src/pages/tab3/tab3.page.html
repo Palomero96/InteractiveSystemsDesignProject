@@ -1,9 +1,34 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Three
+      Clases
     </ion-title>
   </ion-toolbar>
 </ion-header>
+<!-- En esta pagina será distinta en funcion del rol
+en el caso de el profesor aparecera toda la informacion necesaria para crear una pagina
+en el caso del alumno aparecera todal la informacion necesaria para la pagina-->
 
-<ion-content></ion-content>
+<ion-content>
+<!-- Apartado del profesor-->
+<ion-card id="Profesor">
+  <ion-card-content>
+    <ion-label></ion-label>
+  </ion-card-content>
+<!-- Apartado del profesor-->
+  <ion-card id="Alumno">
+        
+        <ion-card-content>
+            <select name="clases" [(ngModel)]='Clases'> <!--Cuando Implementemos la informacion tendremos que poner correctamente el select-->
+                <option *ngFor='let clase of clases; let i=index' value="{{i}}">{{prod[0]}} ({{prod[1]}} €)</option>
+              </select>
+              <!-- Cuando este la informacion habra que añadir los valores que se pongan-->
+            <ion-label> Horario:</ion-label><br> <!-- Mirar como hacerlo-->
+            <ion-label>Profesor:</ion-label><br>
+            <ion-label>Nivel:</ion-label><br>
+            <ion-label>Plazas:</ion-label><br>
+            <ion-label>Alumnos:</ion-label><br>
+            <button ion-button >Inscribirse</button> <!-- Boton para implemental que se une a la clase-->
+        </ion-card-content>
+</ion-card>
+</ion-content>

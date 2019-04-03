@@ -39,7 +39,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../tab2/tab2.module#Tab2PageModule'
+            loadChildren: '../tab4/tab4.module#Tab4PageModule'
           }
         ]
       },
@@ -48,7 +48,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../tab2/tab2.module#Tab2PageModule'
+            loadChildren: '../tab5/tab5.module#Tab5PageModule'
           }
         ]
       },
