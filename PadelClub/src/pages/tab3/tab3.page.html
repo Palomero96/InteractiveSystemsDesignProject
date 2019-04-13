@@ -15,13 +15,14 @@ en el caso del alumno aparecera todal la informacion necesaria para la pagina-->
   <ion-card-content>
     <ion-label></ion-label>
   </ion-card-content>
+</ion-card> 
 <!-- Apartado del profesor-->
   <ion-card id="Alumno">
         
         <ion-card-content>
-            <select name="clases" [(ngModel)]='Clases'> <!--Cuando Implementemos la informacion tendremos que poner correctamente el select-->
-                <option *ngFor='let clase of clases; let i=index' value="{{i}}">{{prod[0]}} ({{prod[1]}} €)</option>
-              </select>
+            <!--<select name="clases" [(ngModel)]='Clases'> Cuando Implementemos la informacion tendremos que poner correctamente el select-->
+              <!--  <option *ngFor='let clase of clases; let i=index' value="{{i}}">{{prod[0]}} ({{prod[1]}} €)</option>
+              </select>-->
               <!-- Cuando este la informacion habra que añadir los valores que se pongan-->
             <ion-label> Horario:</ion-label><br> <!-- Mirar como hacerlo-->
             <ion-label>Profesor:</ion-label><br>
