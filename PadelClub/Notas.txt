@@ -1,3 +1,4 @@
 Para simplificar el horario de las clases va a ser un dia y una hora
 Reservas con listas donde venga el dia y el mes la hora
 Solo dos pistas y 2 clases
+
