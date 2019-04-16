@@ -32,7 +32,6 @@ import {ReservaService} from '../services/reserva.service';
     ClaseService,
     MensajeService,
     ReservaService
-
   ],
   bootstrap: [AppComponent]
 })
