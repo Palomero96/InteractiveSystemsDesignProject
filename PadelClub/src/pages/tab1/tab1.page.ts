@@ -11,7 +11,7 @@ import { NgCalendarModule  } from 'ionic2-calendar';
 })
 export class Tab1Page {
   eventSource = [];
-  viewTitle = 'Mi Calendario';
+  viewTitle: string;
   selectedDay = new Date();
   calendar = {
     mode: 'month',
