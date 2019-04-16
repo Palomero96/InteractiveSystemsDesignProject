@@ -3,6 +3,4 @@ export interface MensajeService{
     origen: string;
     destinatario: string;
     contenido: string;
-
-    
 }
