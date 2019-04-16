@@ -1,4 +1,4 @@
-export interface MensajeService{
+export interface Mensaje {
     key?: string;  //Manejara el id cuando se utiliza firebase
     origen: string;
     destinatario: string;

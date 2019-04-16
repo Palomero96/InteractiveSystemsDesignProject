@@ -11,13 +11,13 @@ import { AppComponent } from './app.component';
 
 import {FIREBASE_CONFIG} from '../app/firebase.credentials';
 import {AngularFireModule} from 'angularfire2';
-import {AngularFireDatabaseModule} from 'angularfire2/database'
+import {AngularFireDatabaseModule} from 'angularfire2/database';
 
-//Importamos los servicios
-import {ContactService} from '../services/contact.service'
-import {ClaseService} from '../services/clase.service'
-import {MensajeService} from '../services/mensaje.service'
-import {ReservaService} from '../services/reserva.service'
+// Importamos los servicios
+import {ContactService} from '../services/contact.service';
+import {ClaseService} from '../services/clase.service';
+import {MensajeService} from '../services/mensaje.service';
+import {ReservaService} from '../services/reserva.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +32,6 @@ import {ReservaService} from '../services/reserva.service'
     ClaseService,
     MensajeService,
     ReservaService
-
   ],
   bootstrap: [AppComponent]
 })
