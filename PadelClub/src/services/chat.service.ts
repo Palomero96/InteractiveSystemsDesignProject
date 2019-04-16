@@ -11,6 +11,7 @@ export class ChatService {
         this.chats = this.db.list<Chat>('chat');
         return this.chats.push(value);
     }
+
     // CON ESTO VALDRIA A NO SER QUE QUERAMOS QUE SE BORRE
     /* Cuando vayamos a llamar al metodo y darle valores a el objeto chat
     usaremos algo parecido a lo siguiente
