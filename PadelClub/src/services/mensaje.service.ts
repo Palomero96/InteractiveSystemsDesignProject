@@ -1,30 +1,25 @@
 import { Mensaje } from "../models/mensaje.model";
 import { Injectable } from "@angular/core";
-import { AngularFireDatabase } from "angularfire2/database";
+import { AngularFireDatabase, AngularFireList, AngularFireObject} from 'angularfire2/database';
 
 @Injectable()
 export class MensajeService{
 
-
-    private mensajeRef=this.db.list<Mensaje>('AgendaFirebase');
-
-
+    
+    mensajes:AngularFireList<Mensaje> =null;
+    chatId: string;
+    
     constructor(private db:AngularFireDatabase){
     }
-    addContact(value: Mensaje){
-    //this.contacts.push(value);
-    return this.mensajeRef.push(value);
+    getChat(chatId):AngularFireList<Mensaje>{
+        this.mensajes=this.db.list<Mensaje>("mensajes/${chatId}");
+        return this.mensajes;
     }
-    getMensajes(){
-        //return this.contacts;
-        return this.mensajeRef;
+    addMensaje(value: Mensaje, chatId){
+        this.mensajes=this.db.list<Mensaje>("mensajes/${chatId}");
+        return this.mensajes.push(value);
     }
 
-    updateMensaje(value: Mensaje){
-        return this.mensajeRef.update(value.key,value);
-    }
-    removeMensaje(value: Mensaje){
-        return this.mensajeRef.remove(value.key);
-    }
+    
 
 }

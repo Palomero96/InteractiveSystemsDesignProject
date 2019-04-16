@@ -7,7 +7,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class ContactService{
 
 
-    private contactsRef=this.db.list<Contact>('AgendaFirebase');
+    
     contactos: AngularFireList<Contact> = null;
     contacto: AngularFireObject<Contact> = null;
     userId: string;
@@ -26,6 +26,7 @@ export class ContactService{
     }
     //Al añadir el contacto se asocia directamente al usuario que lo ha creado
     addContacto(contacto: Contact)  {
+        this.contactos = this.db.list<Contact>('contactos/${this.userId}');
         return this.contactos.push(contacto);
       }
     
