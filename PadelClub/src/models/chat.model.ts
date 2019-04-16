@@ -1,6 +1,6 @@
-export interface Chat{
-    chatid:string;
-    user1:string;
-    user2:string;
+export interface Chat {
+    chatid: string;
+    user1: string;
+    user2: string;
 
 }
