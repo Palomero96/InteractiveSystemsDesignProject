@@ -19,7 +19,7 @@ export class Tab3Page {
   myUserData: {};
 
   constructor(public navCtrl: NavController, private crearClaseMod: ModalController, public navParams: NavParams) {
-    this.esProfesor = true;
+    this.esProfesor = true;   // TODO: Esto deberá variar, fijado a true para tests
   }
 
   ionViewDidLoad() {
