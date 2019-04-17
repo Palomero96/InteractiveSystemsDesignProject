@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Modal, ModalOptions, IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
 /**
  * Generated class for the Tab3Page page.
@@ -15,11 +15,43 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class Tab3Page {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  esProfesor: boolean;
+
+  constructor(public navCtrl: NavController, private crearClaseMod: ModalController, public navParams: NavParams) {
+    this.esProfesor = true;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Tab3Page');
+  }
+
+  crearClase() {
+    if (this.esProfesor) {
+      const myModalOptions: ModalOptions = {
+        enableBackdropDismiss: false
+      }
+
+      const myUserData = {
+        userId: 'profesor1',
+        userName: 'nombre_profesor1',
+      }
+
+      const myModal = this.crearClaseMod.create('CrearClasePage', { data: myUserData }, myModalOptions);
+      
+      myModal.present();
+
+      myModal.onDidDismiss((data) => {
+        console.log("I have just dismissed");
+        console.log(data);
+      })
+
+      myModal.onWillDismiss((data) => {
+        console.log("I'm about to dismiss");
+        console.log(data);
+      })
+
+    }
+
   }
 
 }
