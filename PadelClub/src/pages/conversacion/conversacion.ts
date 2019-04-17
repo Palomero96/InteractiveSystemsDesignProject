@@ -1,4 +1,4 @@
-import { Contact } from './../../../../../LabsDSI/microp_7/microp_7/src/models/contact.model';
+import { Contact } from './../../models/contact.model';
 import { MensajeService } from './../../services/mensaje.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -22,6 +22,7 @@ export class ConversacionPage {
   mensajes$:Observable<Mensaje[]>;
   chatid:string;
 
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, private MensajeService:MensajeService) {
   }
   ionViewWillEnter(){
