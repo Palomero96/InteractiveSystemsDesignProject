@@ -1,3 +1,4 @@
+import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
 import { AddContactoPage } from './../pages/add-contacto/add-contacto';
 import { ChatService } from './../services/chat.service';
 import { Tab5Page } from './../pages/tab5/tab5';
@@ -21,6 +22,7 @@ import { ContactService } from '../services/contact.service';
 import { ClaseService } from '../services/clase.service';
 import { MensajeService } from '../services/mensaje.service';
 import { ReservaService } from '../services/reserva.service';
+import { LoginPage } from '../pages/login/login';
 
 // import { NgCalendarModule } from 'ionic2-calendar';
 
@@ -29,6 +31,7 @@ import { ReservaService } from '../services/reserva.service';
   declarations: [
     MyApp,
     AddContactoPage,
+    LoginPage,
     Tab1Page,
     Tab2Page,
     Tab3Page,
@@ -39,12 +42,14 @@ import { ReservaService } from '../services/reserva.service';
   imports: [
     BrowserModule,CalendarModule, AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     AddContactoPage,
+    LoginPage,
     Tab1Page,
     Tab2Page,
     Tab3Page,

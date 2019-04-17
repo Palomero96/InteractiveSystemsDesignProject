@@ -2,6 +2,7 @@ import { AddContactoPage } from './../add-contacto/add-contacto';
 import { Tab1Page } from './../tab1/tab1';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the Tab5Page page.
@@ -25,7 +26,8 @@ export class Tab5Page {
 
   openFilters()
   {
-    this.navCtrl.push(AddContactoPage);
+    this.navCtrl.push(LoginPage);
+    //this.navCtrl.push(AddContactoPage);
   }
 
 }
