@@ -16,6 +16,7 @@ import { Modal, ModalOptions, IonicPage, NavController, NavParams, ModalControll
 export class Tab3Page {
 
   esProfesor: boolean;
+  myUserData: {};
 
   constructor(public navCtrl: NavController, private crearClaseMod: ModalController, public navParams: NavParams) {
     this.esProfesor = true;
@@ -31,12 +32,12 @@ export class Tab3Page {
         enableBackdropDismiss: false
       }
 
-      const myUserData = {
+      this.myUserData = {
         userId: 'profesor1',
         userName: 'nombre_profesor1',
       }
 
-      const myModal = this.crearClaseMod.create('CrearClasePage', { data: myUserData }, myModalOptions);
+      const myModal = this.crearClaseMod.create('CrearClasePage', { data: this.myUserData }, myModalOptions);
       
       myModal.present();
 

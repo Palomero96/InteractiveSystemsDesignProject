@@ -14,14 +14,42 @@ import { IonicPage, NavParams, ViewController } from 'ionic-angular';
   templateUrl: 'crear-clase.html',
 })
 export class CrearClasePage {
+  data: {
+    userId: string,
+    userName: string
+  };
+
+  claseData: {
+    fechaIni: string,
+    fechaFin: string,
+    diaSemana: string,
+    hora: string,
+    nivel: string,
+    pista: string
+  };
 
   constructor(private navParams: NavParams, private view: ViewController) {
+     this.data = this.navParams.get('data');
+     this.claseData = {
+      fechaIni: "",
+      fechaFin: "",
+      diaSemana: "",
+      hora: "",
+      nivel: "",
+      pista: ""
+    };
   }
 
   ionViewWillLoad() {
-    const data = this.navParams.get('data');
-    console.log(data);
+    // this.data = this.navParams.get('data');
+    console.log(this.data);
     // alert(data);
+  }
+
+  crearClaseSubmit() {
+    console.log(this.data);
+    alert("¡Nueva clase creada!");
+    this.cerrarCrearClase();
   }
 
   cerrarCrearClase() {
