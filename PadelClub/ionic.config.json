@@ -1,7 +1,5 @@
 {
   "name": "PadelClub",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular"
+  "integrations": {},
+  "type": "ionic-angular"
 }

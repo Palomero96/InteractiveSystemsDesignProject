@@ -1,7 +1,8 @@
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Contact } from "../models/contact.model";
 import { Injectable } from "@angular/core";
-import { AngularFireDatabase, AngularFireList, AngularFireObject} from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireList, AngularFireDatabase, AngularFireObject } from "angularfire2/database";
+
 
 @Injectable()
 export class ContactService{
