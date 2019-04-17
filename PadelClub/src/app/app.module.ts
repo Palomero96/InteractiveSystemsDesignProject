@@ -1,3 +1,4 @@
+import { AddContactoPage } from './../pages/add-contacto/add-contacto';
 import { ChatService } from './../services/chat.service';
 import { Tab5Page } from './../pages/tab5/tab5';
 import { Tab4Page } from './../pages/tab4/tab4';
@@ -23,6 +24,7 @@ import { ReservaService } from '../services/reserva.service';
 @NgModule({
   declarations: [
     MyApp,
+    AddContactoPage,
     Tab1Page,
     Tab2Page,
     Tab3Page,
@@ -38,6 +40,7 @@ import { ReservaService } from '../services/reserva.service';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    AddContactoPage,
     Tab1Page,
     Tab2Page,
     Tab3Page,

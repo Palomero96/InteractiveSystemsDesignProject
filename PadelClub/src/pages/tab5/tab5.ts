@@ -1,3 +1,4 @@
+import { AddContactoPage } from './../add-contacto/add-contacto';
 import { Tab1Page } from './../tab1/tab1';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -24,7 +25,7 @@ export class Tab5Page {
 
   openFilters()
   {
-    this.navCtrl.push(Tab1Page);
+    this.navCtrl.push(AddContactoPage);
   }
 
 }

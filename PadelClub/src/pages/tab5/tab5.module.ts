@@ -1,3 +1,4 @@
+import { AddContactoPage } from './../add-contacto/add-contacto';
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { Tab5Page } from './tab5';
@@ -5,7 +6,9 @@ import { Tab5Page } from './tab5';
 @NgModule({
   declarations: [
     Tab5Page,
+    AddContactoPage,
   ],
+  entryComponents: [AddContactoPage],
   imports: [
     IonicPageModule.forChild(Tab5Page),
   ],
