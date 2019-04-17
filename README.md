@@ -6,6 +6,4 @@ IMPORTANTE: Hay que añadir la linea automaticDataCollectionEnabled: boolean; de
 IMPORTANTE 2: Hay que ejecutar el comando npm install --save rxjs-compat desde la terminal, antes de hacer ionic serve.
 
 ## Prerequisites
-npm install ionic2-calendar --save
-npm install moment --save
-npm install intl@1.2.5 --save
+npm install ionic3-calendar-en --save
