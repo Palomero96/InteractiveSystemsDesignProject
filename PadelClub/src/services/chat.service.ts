@@ -16,16 +16,20 @@ export class ChatService {
         this.chats = this.db.list<Chat>('chat');
         return this.chats.push(value);
     }
+    // HABRA que modificar los parametros que recibe el metodo
+    // Metodo para recuperar los chats en los que el usuario sea el primero 
+    getUserChats1(Usuario): AngularFireList<Chat> {
+            return this.chatsUser1 = this.db.list('chat', ref => ref.orderByChild('user1').equalTo(Usuario));
+             
+        }
+    // Metodo para recuperar los chats en los que el usuario sea el primero    
+    getUserChats2(Usuario): AngularFireList<Chat> {
+            return this.chatsUser2 = this.db.list('chat', ref => ref.orderByChild('user2').equalTo(Usuario));
+             
+        }    
+
     // Metodo para recuperar las Clase de un Usuario
-    // No estoy seguro de que funcione, deberia de recuperar los datos de las Clase de un usuario
-    // getUserChats(Usuario): AngularFireList<Chat> {
-    //     this.chatsUser1 = this.db.list('chat', ref => ref.orderByChild('user1').equalTo(Usuario));
-    //     this.chatsUser2 = this.db.list('chat', ref => ref.orderByChild('user2').equalTo(Usuario));
-    //     for let chatInstance in this.chatsUser2 {
-    //         this.chats = this.chatsUser1.
-    //         return this.chats;
-    //     }
-    // }
+  
 
     // CON ESTO VALDRIA A NO SER QUE QUERAMOS QUE SE BORRE
     /* Cuando vayamos a llamar al metodo y darle valores a el objeto chat
