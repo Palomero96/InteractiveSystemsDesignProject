@@ -23,6 +23,7 @@ import { ClaseService } from '../services/clase.service';
 import { MensajeService } from '../services/mensaje.service';
 import { ReservaService } from '../services/reserva.service';
 import { LoginPage } from '../pages/login/login';
+import { ConversacionPage } from '../pages/conversacion/conversacion';
 
 // import { NgCalendarModule } from 'ionic2-calendar';
 
@@ -32,6 +33,7 @@ import { LoginPage } from '../pages/login/login';
     MyApp,
     AddContactoPage,
     LoginPage,
+    ConversacionPage,
     Tab1Page,
     Tab2Page,
     Tab3Page,
@@ -50,6 +52,7 @@ import { LoginPage } from '../pages/login/login';
     MyApp,
     AddContactoPage,
     LoginPage,
+    ConversacionPage,
     Tab1Page,
     Tab2Page,
     Tab3Page,
