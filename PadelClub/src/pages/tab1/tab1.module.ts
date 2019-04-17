@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { NgCalendarModule  } from 'ionic2-calendar';
+
 @NgModule({
   declarations: [
     Tab1Page,

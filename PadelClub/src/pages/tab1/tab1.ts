@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { NgCalendarModule } from 'ionic2-calendar';
+import * as moment from 'moment';
+
 @IonicPage()
 @Component({
   selector: 'page-tab1',
