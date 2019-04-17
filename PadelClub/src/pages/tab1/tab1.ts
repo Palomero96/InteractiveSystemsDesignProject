@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 
 import { NgCalendarModule } from 'ionic2-calendar';
 import * as moment from 'moment';
+
+// import { CalendarComponent } from 'ionic2-calendar/calendar';
+// import { MonthViewComponent } from 'ionic2-calendar/monthview';
+// import { WeekViewComponent } from 'ionic2-calendar/weekview';
+// import { DayViewComponent } from 'ionic2-calendar/dayview';
 
 @IonicPage()
 @Component({
@@ -10,7 +15,6 @@ import * as moment from 'moment';
   templateUrl: 'tab1.html',
 })
 export class Tab1Page {
-
   eventSource = [];
   viewTitle: string;
   selectedDay = new Date();
@@ -18,7 +22,8 @@ export class Tab1Page {
     mode: 'month',
     currentDate: new Date()
   };
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  
+  constructor(public navCtrl: NavController, private modalCtrl: ModalController, private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {

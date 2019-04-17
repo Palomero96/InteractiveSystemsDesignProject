@@ -21,6 +21,9 @@ import { ClaseService } from '../services/clase.service';
 import { MensajeService } from '../services/mensaje.service';
 import { ReservaService } from '../services/reserva.service';
 
+// import { NgCalendarModule } from 'ionic2-calendar';
+
+
 @NgModule({
   declarations: [
     MyApp,
