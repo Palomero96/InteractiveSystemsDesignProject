@@ -6,7 +6,6 @@ import * as moment from 'moment';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, } from 'angularfire2/database';
 import { Contact } from '../../models/contact.model';
-import { Observable } from '@firebase/util';
 
 // import { CalendarComponent } from 'ionic2-calendar/calendar';
 // import { MonthViewComponent } from 'ionic2-calendar/monthview';
@@ -104,7 +103,7 @@ export class Tab1Page {
     currentDate: new Date()
   };
 
-  datosPerfil: Observable<{}>;
+  datosPerfil: AngularFireObject<Contact>;
 
   constructor(private afAuth: AngularFireAuth, private afDataBase: AngularFireDatabase,
     private toast: ToastController,
@@ -119,8 +118,8 @@ export class Tab1Page {
            message: `Bienvenido, ${data.email}`,
            duration: 2000
          }).present();
-
-         this.datosPerfil = this.afDataBase.object(`perfil/${data.uid}`).valueChanges();
+         
+         this.datosPerfil = this.afDataBase.object(`perfil/${data.uid}`);
        }
        else
        {
