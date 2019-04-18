@@ -11,6 +11,7 @@ import { FirebaseDatabase } from '@firebase/database-types';
 export class ContactService{
     
     contactos: Observable<Contact[]> = null;
+    amigos: Observable<Contact[]> = null;
     contacto: AngularFireObject<Contact> = null;
     userId: string;
 
@@ -31,7 +32,6 @@ export class ContactService{
     //Devuelve todos los usuarios disponibles
     getContactos(): Observable<Contact[]> {
       this.contactos = this.db.list<Contact>(`perfil`, ref => ref.orderByChild(`nombre`)).valueChanges();
-      //this.contactos = this.db.list<Contact>(`perfiles`);
       return this.contactos;
     }
 

@@ -48,7 +48,7 @@
   <ion-card-content>
     <ion-list>
       <ion-item *ngFor="let amigo of amigosPerfil | async">
-        <ion-label>{{amigo.nombre}} <button ion-button>Mensaje</button></ion-label>
+        <ion-label>{{amigo.nombre}} {{amigo.apellidos}} <button ion-button (click)="irConversacion(amigo.id)">Mensaje</button></ion-label>
       </ion-item>
     </ion-list>
   </ion-card-content>

@@ -14,42 +14,32 @@ export class ChatService {
     constructor(private db: AngularFireDatabase) {
     }
     addChat(value: Chat ) {
-        this.chats = this.db.list<Chat>('chat');
+        this.chats = this.db.list<Chat>('chat/${value.user1}/${value.user2}');
+        this.chats = this.db.list<Chat>('chat/${value.user2}/${value.user1}');
         return this.chats.push(value);
     }
     // HABRA que modificar los parametros que recibe el metodo
     // Metodo para recuperar los chats en los que el usuario sea el primero 
     getUserChats1(Usuario): AngularFireList<Chat> {
             return this.chatsUser1 = this.db.list('chat', ref => ref.orderByChild('user1').equalTo(Usuario));
-             
+            
         }
     // Metodo para recuperar los chats en los que el usuario sea el primero    
     getUserChats2(Usuario): AngularFireList<Chat> {
             return this.chatsUser2 = this.db.list('chat', ref => ref.orderByChild('user2').equalTo(Usuario));
              
         }  
-        
+    getUserChats(Usuario): AngularFireList<Chat> {
+            return this.chatsUser1 = this.db.list('chat', ref => ref.orderByChild('user1').equalTo(Usuario));
+            
+        }
     getChat(value)  {
         return (this.db.list('chat', ref => ref.orderByChild('chatid').equalTo(value)));
         
-
     }  
-    // Metodo para recuperar las Clase de un Usuario
-  
+    getChatP(user1, user2)  {
+        return this.db.list<Chat>('chat/${user1}/${user2}');
 
-    // CON ESTO VALDRIA A NO SER QUE QUERAMOS QUE SE BORRE
-    /* Cuando vayamos a llamar al metodo y darle valores a el objeto chat
-    usaremos algo parecido a lo siguiente
-    var user1 = "Frank";
-    var user2 = "Eusthace";
-
-var roomName = 'chat_'+(user1<user2 ? user1+'_'+user2 : user2+'_'+user1);
-
-console.log(user1+', '+user2+' => '+ roomName);
-user1 = "Eusthace";
-user2 = "Frank";
-
-var roomName = 'chat_'+(user1<user2 ? user1+'_'+user2 : user2+'_'+user1);
-
-console.log(user1+', '+user2+' => '+ roomName); */
+    }
+    
 }
