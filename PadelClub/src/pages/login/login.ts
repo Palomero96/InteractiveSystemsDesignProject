@@ -1,6 +1,10 @@
+import { TabsPage } from './../tabs/tabs';
+import { AddPerfilPage } from './../add-perfil/add-perfil';
+import { Tab1Page } from './../tab1/tab1';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
 
 /**
  * Generated class for the LoginPage page.
@@ -21,11 +25,25 @@ export class LoginPage {
   constructor(private afAuth: AngularFireAuth,  
     public navCtrl: NavController, public navParams: NavParams) {
   }
-registro()
+  async registro()
   {
-    alert("usuario " + this.email+"    pass "+ this.pass);
-    const result = this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.pass);
-    alert(result);
+    try{
+    const result = await this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.pass).then(()=>this.navCtrl.setRoot(AddPerfilPage,{paramEmail: this.email}));
+  }
+    catch(e)
+    {
+      alert(e);
+    }
+  }
+  entrarUsuario()
+  {
+    try{
+      const result = this.afAuth.auth.signInWithEmailAndPassword(this.email, this.pass).then(()=> this.navCtrl.setRoot(TabsPage));
+    }
+    catch(e)
+    {
+      alert(e);
+    }
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');

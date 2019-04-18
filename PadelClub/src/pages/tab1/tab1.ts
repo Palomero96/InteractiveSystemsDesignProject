@@ -1,8 +1,11 @@
+import { AngularFireObject } from 'angularfire2/database';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, ModalController, AlertController, ToastController } from 'ionic-angular';
 import { NgCalendarModule } from 'ionic2-calendar';
 import * as moment from 'moment';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase, } from 'angularfire2/database';
+import { Contact } from '../../models/contact.model';
 
 // import { CalendarComponent } from 'ionic2-calendar/calendar';
 // import { MonthViewComponent } from 'ionic2-calendar/monthview';
@@ -100,12 +103,33 @@ export class Tab1Page {
     currentDate: new Date()
   };
 
-  constructor(public navCtrl: NavController, private modalCtrl: ModalController, private alertCtrl: AlertController) {
+  datosPerfil: AngularFireObject<Contact>;
+
+  constructor(private afAuth: AngularFireAuth, private afDataBase: AngularFireDatabase,
+    private toast: ToastController,
+    public navCtrl: NavController, private modalCtrl: ModalController, private alertCtrl: AlertController) {
   }
 
-  // ionViewDidLoad() {
-  //   console.log('ionViewDidLoad Tab1Page');
-  // }
+   ionViewDidLoad() {
+     this.afAuth.authState.take(1).subscribe(data=>{
+       if(data && data.email && data.uid)
+       {
+         this.toast.create({
+           message: `Bienvenido, ${data.email}`,
+           duration: 2000
+         }).present();
+         
+         this.datosPerfil = this.afDataBase.object(`perfil/${data.uid}`);
+       }
+       else
+       {
+         this.toast.create({
+           message: `No hay datos de usuario`,
+           duration: 2000
+         }).present();
+       }
+     })
+    }
   onViewTitleChanged(title) {
     this.viewTitle = title;
   }

@@ -26,7 +26,6 @@ export class Tab5Page {
 
   openFilters()
   {
-    this.navCtrl.push(LoginPage);
     //this.navCtrl.push(AddContactoPage);
   }
 

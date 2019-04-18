@@ -1,3 +1,4 @@
+import { AddPerfilPage } from './../pages/add-perfil/add-perfil';
 import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
 import { AddContactoPage } from './../pages/add-contacto/add-contacto';
 import { ChatService } from './../services/chat.service';
@@ -33,6 +34,7 @@ import { ConversacionPage } from '../pages/conversacion/conversacion';
     MyApp,
     AddContactoPage,
     LoginPage,
+    AddPerfilPage,
     ConversacionPage,
     Tab1Page,
     Tab2Page,
@@ -52,6 +54,7 @@ import { ConversacionPage } from '../pages/conversacion/conversacion';
     MyApp,
     AddContactoPage,
     LoginPage,
+    AddPerfilPage,
     ConversacionPage,
     Tab1Page,
     Tab2Page,

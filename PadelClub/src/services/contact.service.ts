@@ -40,11 +40,13 @@ export class ContactService{
         this.contactos = this.db.list<Contact>('contactos/${this.userId}');
         return this.contactos.push(contacto);
       }
+    /*
+    Esto no hay que hacerlo asi, se hace solo por firebase
     removeContact(value: Contact)
     {
         this.contactos = this.db.list<Contact>('contactos/${this.userId}');
         return this.contactos.remove(value.id);
-    }
+    }*/
     
     /*El concepto que utilizamos para añadir o eliminar contactos a la lista es como si fuesen canales
     de forma que el usuario se vincula o desvincula de un contacto ya creado, de esta forma, los contactos
