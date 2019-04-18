@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, } from 'angularfire2/database';
 import { Contact } from '../../models/contact.model';
+import { Observable } from '@firebase/util';
 
 // import { CalendarComponent } from 'ionic2-calendar/calendar';
 // import { MonthViewComponent } from 'ionic2-calendar/monthview';
