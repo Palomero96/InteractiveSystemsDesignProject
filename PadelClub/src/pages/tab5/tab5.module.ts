@@ -1,3 +1,4 @@
+import { ConversacionPage } from './../conversacion/conversacion';
 import { AddContactoPage } from './../add-contacto/add-contacto';
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
@@ -7,10 +8,11 @@ import { LoginPage } from '../login/login';
 @NgModule({
   declarations: [
     Tab5Page,
+    ConversacionPage,
     LoginPage,
     AddContactoPage,
   ],
-  entryComponents: [AddContactoPage,LoginPage],
+  entryComponents: [AddContactoPage,LoginPage,ConversacionPage],
   imports: [
     IonicPageModule.forChild(Tab5Page),
   ],

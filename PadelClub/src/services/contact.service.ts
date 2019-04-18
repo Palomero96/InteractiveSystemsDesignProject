@@ -1,11 +1,8 @@
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Contact } from "../models/contact.model";
 import { Injectable } from "@angular/core";
-import { AngularFireList, AngularFireDatabase, AngularFireObject } from "angularfire2/database";
-import { List } from 'ionic-angular';
+import { AngularFireDatabase, AngularFireObject } from "angularfire2/database";
 import { Observable } from 'rxjs/Observable';
-import { FirebaseDatabase } from '@firebase/database-types';
-
 
 @Injectable()
 export class ContactService{

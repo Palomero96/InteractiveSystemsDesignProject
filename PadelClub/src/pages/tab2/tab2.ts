@@ -50,7 +50,7 @@ export class Tab2Page {
   ionViewDidLoad() {
     console.log('ionViewDidLoad Tab2Page');
   }
-  irConversacion(event ,chat ){
+  irConversacion(chat ){
     this.navCtrl.push(ConversacionPage,{
     item:chat.chatid
     });

@@ -38,7 +38,11 @@ export class LoginPage {
   entrarUsuario()
   {
     try{
-      const result = this.afAuth.auth.signInWithEmailAndPassword(this.email, this.pass).then(()=> this.navCtrl.setRoot(TabsPage));
+      //Para evitar el login en el testeo
+      const result = this.afAuth.auth.signInWithEmailAndPassword("user1@test.com", "passuser1").then(()=> this.navCtrl.setRoot(TabsPage));
+      
+      //Esta es la llamada correcta
+      //const result = this.afAuth.auth.signInWithEmailAndPassword(this.email, this.pass).then(()=> this.navCtrl.setRoot(TabsPage));
     }
     catch(e)
     {
@@ -47,6 +51,8 @@ export class LoginPage {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+    //Esto es para evitar el login en el testeo
+    this.entrarUsuario();
   }
 
 }

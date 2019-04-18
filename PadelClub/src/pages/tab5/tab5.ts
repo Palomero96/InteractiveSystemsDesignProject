@@ -23,10 +23,10 @@ import { Chat } from '../../models/chat.model';
 })
 export class Tab5Page {
   userid:string;
-  chat:Chat;
-  chats:Observable<Chat[]>;
+  chat;
+  chats:Observable<Chat[]>=null;
   chatid:string;
-  ChatService:ChatService;
+  chatService:ChatService;
   datosPerfil: Observable<{}>;
   amigosPerfil: Observable<{}>;
 
@@ -55,27 +55,27 @@ export class Tab5Page {
 
   irConversacion(useridcontacto ){
     this.userid=useridcontacto;
-    this.afAuth.authState.take(1).subscribe(data=>{
+    this.afAuth.authState.take(1).subscribe(async data=>{
       //de esta manera el id sera el mismo da igual quien cree la conversacion
       this.chatid = 'chat_'+(data.uid<this.userid ? data.uid+'_'+this.userid : this.userid+'_'+data.uid);
       //No se muy bien porque me da error esto
       //REVISAR
-      this.chats=this.ChatService.getChatP(data.uid, this.userid).snapshotChanges() //retorna los cambios en la DB (key and value)
-      .map(
-      changes => {return changes.map(c=> ({key: c.payload.key, ...c.payload.val()}));});
+      console.log(this.chatid);
+      this.chat = await this.chatService.getChatP(data.uid, this.userid); //retorna los cambios en la DB (key and value)
+/*
 
-      if (null==this.chats){
+      if (this.chats==undefined){
         this.chat ={
         chatid: this.chatid,
         user1: data.uid,
         user2:this.userid,
         }
-        this.ChatService.addChat(this.chat);
+        this.chatService.addChat(this.chat);
        }
-   this.navCtrl.push(ConversacionPage,{
+  this.navCtrl.push(ConversacionPage,{
               chatid:this.chatid,
               userdest:this.userid,
-              });
+              });*/
     }
     )}
   nuevoAmigo()
