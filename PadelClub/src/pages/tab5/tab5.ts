@@ -23,7 +23,7 @@ import { Chat } from '../../models/chat.model';
 })
 export class Tab5Page {
   userid:string;
-  chat;
+  chat:Chat;
   chats:Observable<Chat[]>=null;
   chatid:string;
   chatService:ChatService;
@@ -61,21 +61,24 @@ export class Tab5Page {
       //No se muy bien porque me da error esto
       //REVISAR
       console.log(this.chatid);
-      this.chat = await this.chatService.getChatP(data.uid, this.userid); //retorna los cambios en la DB (key and value)
-/*
+     /* this.chat = await this.chatService.getChatP(data.uid, this.userid); //retorna los cambios en la DB (key and value)
+*/
 
-      if (this.chats==undefined){
+      
         this.chat ={
         chatid: this.chatid,
         user1: data.uid,
         user2:this.userid,
         }
-        this.chatService.addChat(this.chat);
-       }
+        this.afAuth.authState.take(1).subscribe(auth => {
+          this.afDataBase.object(`chat/${auth.uid}/${this.chat.user2}`).set(value);
+          this.afDataBase.object(`chat/${this.chat.user2}/${auth.uid}`).set(value);
+        });
+       
   this.navCtrl.push(ConversacionPage,{
               chatid:this.chatid,
               userdest:this.userid,
-              });*/
+              });
     }
     )}
   nuevoAmigo()

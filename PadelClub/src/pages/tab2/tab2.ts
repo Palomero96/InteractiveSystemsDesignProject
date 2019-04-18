@@ -27,9 +27,9 @@ export class Tab2Page {
   }
   
   ionViewWillEnter(){
-      this.afAuth.authState.take(1).subscribe(data=>{
+      /*  this.afAuth.authState.take(1).subscribe(data=>{
 
-     
+   
     this.chat1$ = this.ChatService
     .getUserChats1(data.uid) //Retorna la DB
     .snapshotChanges() //retorna los cambios en la DB (key and value)
@@ -41,7 +41,7 @@ export class Tab2Page {
     .snapshotChanges() //retorna los cambios en la DB (key and value)
     .map(
     changes => {return changes.map(c=> ({key: c.payload.key, ...c.payload.val()}));});
-   }) 
+   }) */
   }
 
   /* Cuando hagamos la funcion del click para el boton habra que
