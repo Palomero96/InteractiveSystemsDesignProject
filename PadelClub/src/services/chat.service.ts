@@ -10,6 +10,7 @@ export class ChatService {
     chats: AngularFireList<Chat> = null;
     chatsUser1: AngularFireList<Chat> = null;
     chatsUser2: AngularFireList<Chat> = null;
+    
     constructor(private db: AngularFireDatabase) {
     }
     addChat(value: Chat ) {
@@ -26,8 +27,13 @@ export class ChatService {
     getUserChats2(Usuario): AngularFireList<Chat> {
             return this.chatsUser2 = this.db.list('chat', ref => ref.orderByChild('user2').equalTo(Usuario));
              
-        }    
+        }  
+        
+    getChat(value)  {
+        return (this.db.list('chat', ref => ref.orderByChild('chatid').equalTo(value)));
+        
 
+    }  
     // Metodo para recuperar las Clase de un Usuario
   
 

@@ -52,7 +52,7 @@ export class Tab2Page {
   }
   irConversacion(event ,chat ){
     this.navCtrl.push(ConversacionPage,{
-    item:chat
+    item:chat.chatid
     });
     }
 }

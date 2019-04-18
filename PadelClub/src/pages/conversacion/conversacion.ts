@@ -1,3 +1,4 @@
+import { ChatService } from './../../services/chat.service';
 import { Contact } from './../../models/contact.model';
 import { MensajeService } from './../../services/mensaje.service';
 import { Component } from '@angular/core';
@@ -6,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { Mensaje } from '../../models/mensaje.model';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Chat } from '../../models/chat.model';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 /**
  * Generated class for the ConversacionPage page.
@@ -21,17 +23,33 @@ import { Chat } from '../../models/chat.model';
 })
 export class ConversacionPage {
   Contact:Contact; //MIRar como obtener ese dato
-  Chat:Chat;
   mensajes$:Observable<Mensaje[]>;
   chatid:string; //mirar como obtener ese dato
+  Chat:any;
+  chats:Observable<Chat[]>;
+  ChatService: ChatService
   userdest:string;
   mensaje:Mensaje;
   enviar:string;
   constructor(public navCtrl: NavController, public navParams: NavParams, private MensajeService:MensajeService,private afAuth: AngularFireAuth) {
-  this.Chat = navParams.get("chat")
+  this.chatid = navParams.get("chatid")
+  
   }
   ionViewWillEnter(){
+    //REVISAR
+    this.Chat=this.ChatService.getChat(this.chatid).snapshotChanges() //retorna los cambios en la DB (key and value)
+    .map(
+    changes => {return changes.map(c=> ({key: c.payload.key, ...c.payload.val()}));});
     
+    this.afAuth.authState.take(1).subscribe(data=>{
+    if(this.Chat.user1==data.uid){
+      this.userdest=this.Chat.user2;
+    }else{
+      this.userdest=this.Chat.user1;
+    }
+    
+
+    })
     //Habra que darle un valor al chatID en funcion del que haya clickado
     this.mensajes$ = this.MensajeService
     .getMensajes(this.chatid) //Retorna la DB
