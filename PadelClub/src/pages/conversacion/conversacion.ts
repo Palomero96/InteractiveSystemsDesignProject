@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { Mensaje } from '../../models/mensaje.model';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 /**
  * Generated class for the ConversacionPage page.
@@ -18,12 +19,13 @@ import { Mensaje } from '../../models/mensaje.model';
   templateUrl: 'conversacion.html',
 })
 export class ConversacionPage {
-  Contact:Contact;
+  Contact:Contact; //MIRar como obtener ese dato
   mensajes$:Observable<Mensaje[]>;
-  chatid:string;
-
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, private MensajeService:MensajeService) {
+  chatid:string; //mirar como obtener ese dato
+  userid:string;
+  mensaje:Mensaje;
+  enviar:string;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private MensajeService:MensajeService,private afAuth: AngularFireAuth) {
   }
   ionViewWillEnter(){
     //Habra que darle un valor al chatID en funcion del que haya clickado
@@ -33,6 +35,19 @@ export class ConversacionPage {
     .map(
     changes => {return changes.map(c=> ({key: c.payload.key, ...c.payload.val()}));});
     }
+
+   enviarMensaje() {
+    this.afAuth.authState.take(1).subscribe(data=>{
+
+     this.mensaje ={
+        id: this.chatid,
+        origen: data.uid,//falta modificar esto para lo del id
+        destinatario: this.Contact.id,
+        contenido:this.enviar,
+     }
+     this.MensajeService.addMensaje(this.mensaje, this.chatid);
+    })
+   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConversacionPage');

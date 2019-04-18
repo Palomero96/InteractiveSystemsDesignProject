@@ -27,7 +27,7 @@ export class ContactService{
     
     //Devuelve todos los usuarios disponibles
     getContactos(): AngularFireList<Contact> {
-      this.contactos = this.db.list<Contact>('contactosDisponibles');
+      this.contactos = this.db.list<Contact>('perfiles');
       return this.contactos;
     }
     //Al añadir el contacto a la bd general

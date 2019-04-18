@@ -7,6 +7,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import 'rxjs/add/operator/take';
 import { Observable } from 'rxjs/Observable';
 import { TabsPage } from '../tabs/tabs';
+import { AuthTokenProvider } from '@firebase/database/dist/src/core/AuthTokenProvider';
 
 /**
  * Generated class for the AddPerfilPage page.
@@ -36,16 +37,18 @@ export class AddPerfilPage {
   //metodo para completar el perfil en firebase
   completarPerfil()
   {
-    this.contacto = { 
-      nombre: this.nombre,
-      apellidos: this.apellidos,
-      edad: this.edad,
-      nivel: "Provisional",
-      rol: "Alumno",
-      email: this.email,
-    }
+    
     //Para poder utilizar el take(1) hay que importarlo arriba de rxjs
     this.afAuth.authState.take(1).subscribe(auth => {
+      this.contacto = { 
+        id: auth.uid,
+        nombre: this.nombre,
+        apellidos: this.apellidos,
+        edad: this.edad,
+        nivel: "Provisional",
+        rol: "Alumno",
+        email: this.email,
+      }
       this.afDataBase.object(`perfil/${auth.uid}`).set(this.contacto).then(() => this.navCtrl.push(TabsPage));
     })
   }
