@@ -103,7 +103,7 @@ export class Tab1Page {
     currentDate: new Date()
   };
 
-  datosPerfil: AngularFireObject<Contact>;
+  datosPerfil: Observable<{}>;
 
   constructor(private afAuth: AngularFireAuth, private afDataBase: AngularFireDatabase,
     private toast: ToastController,
@@ -118,8 +118,8 @@ export class Tab1Page {
            message: `Bienvenido, ${data.email}`,
            duration: 2000
          }).present();
-         
-         this.datosPerfil = this.afDataBase.object(`perfil/${data.uid}`);
+
+         this.datosPerfil = this.afDataBase.object(`perfil/${data.uid}`).valueChanges();
        }
        else
        {

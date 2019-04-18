@@ -15,12 +15,12 @@
         <ion-card-content>
                         <!-- Cuando este la informacion habra que añadir los valores que se pongan-->
 
-            <ion-label>Nombre:</ion-label>  <!--Conectar con firebase: Hará falta ionitem o algo --><br>
-            <ion-label>Apellidos:</ion-label><br>
-            <ion-label>Edad:</ion-label><br>
-            <ion-label>Nivel:</ion-label><br>
-            <ion-label>Rol:</ion-label><br>
-            <ion-label>Email:</ion-label><br>
+            <p>Nombre: {{(datosPerfil | async)?.nombre}} </p>  <!--Conectar con firebase: Hará falta ionitem o algo --><br>
+            <p>Apellidos: {{(datosPerfil | async)?.apellidos}}</p><br>
+            <p>Edad: {{(datosPerfil | async)?.edad}}</p><br>
+            <p>Nivel: {{(datosPerfil | async)?.nivel}}</p><br>
+            <p>Rol: {{(datosPerfil | async)?.rol}}</p><br>
+            <p>Email: {{(datosPerfil | async)?.email}}</p><br>
           
         </ion-card-content>
   </ion-card>
