@@ -47,8 +47,8 @@
   </ion-card-header>
   <ion-card-content>
     <ion-list>
-      <ion-item>
-        <ion-label>Amigo 1 <button ion-button>Mensaje</button></ion-label>
+      <ion-item *ngFor="let amigo of amigosPerfil | async">
+        <ion-label>{{amigo.nombre}} <button ion-button>Mensaje</button></ion-label>
       </ion-item>
     </ion-list>
   </ion-card-content>

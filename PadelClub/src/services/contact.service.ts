@@ -35,6 +35,12 @@ export class ContactService{
       return this.contactos;
     }
 
+    //Devuelve los amigos de un usuario
+    getAmigos(value:string): Observable<Contact[]> {
+      return this.db.list<Contact>(`perfil`, ref => ref.orderByChild(`amigos/id`).equalTo(value)).valueChanges();
+      //this.contactos = this.db.list<Contact>(`perfiles`);
+    }
+
     /*
     Esto no hay que hacerlo asi, se hace solo por firebase
     removeContact(value: Contact)
