@@ -7,14 +7,14 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let chat of chats1$ | async">
-        <ion-card> {{chat.user2}}</ion-card>
+    <ion-item *ngFor="let chat of chats1$ | async" > <!-- Revisar lo del async-->
+        <ion-card (click)="irConversacion($event, chat)"> {{chat.user2}}</ion-card>
         
       </ion-item>
   </ion-list>
    <ion-list>
     <ion-item *ngFor="let chat of chats2$ | async">
-        <ion-card> {{chat.user1}} </ion-card>
+        <ion-card (click)="irConversacion($event, chat)"> {{chat.user1}} </ion-card>
       </ion-item>
   </ion-list>
 </ion-content>
