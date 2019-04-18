@@ -30,10 +30,7 @@ export class ContactService{
 
     //Devuelve todos los usuarios disponibles
     getContactos(): Observable<Contact[]> {
-      this.contactos = this.db.list<Contact>(`perfiles`, ref => {
-        let q =ref.orderByChild('nombre')
-        return q;
-      }).valueChanges();
+      this.contactos = this.db.list<Contact>(`perfil`, ref => ref.orderByChild(`nombre`)).valueChanges();
       //this.contactos = this.db.list<Contact>(`perfiles`);
       return this.contactos;
     }
