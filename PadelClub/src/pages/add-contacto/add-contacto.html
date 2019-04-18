@@ -16,7 +16,7 @@
         </ion-card-header>
         <ion-card-content>
           <ion-list>
-            <ion-item *ngFor="let contact of contacts$">
+            <ion-item *ngFor="let contact of contacts$ | async">
                 <p><strong>Nombre: </strong>{{contact.nombre}}</p>
                 <p><button ion-button>+</button></p>
             </ion-item>

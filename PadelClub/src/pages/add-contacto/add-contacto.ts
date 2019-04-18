@@ -17,9 +17,8 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: 'add-contacto.html',
 })
 export class AddContactoPage {
-
-  contactos: Contact[] = [];
   contacts$: Observable<Contact[]>;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private ContactService: ContactService) {
   }
@@ -27,19 +26,6 @@ export class AddContactoPage {
   ionViewWillEnter(){
       this.contacts$ = this.ContactService
       .getContactos() //Retorna la DB
-      .snapshotChanges() //retorna los cambios en la DB (key and value)
-      .map(
-      /*
-      Estas líneas retornan un array de objetos con el id del registro y su
-      contenido
-      {
-      "key":"value",
-      contact.name,
-      contact.organization,
-      ...
-      }
-      */
-      changes => {return changes.map(c=> ({key: c.payload.key, ...c.payload.val()}));});
       }
    
   ionViewDidLoad() {

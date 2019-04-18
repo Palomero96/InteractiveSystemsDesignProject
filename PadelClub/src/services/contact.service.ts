@@ -2,12 +2,15 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Contact } from "../models/contact.model";
 import { Injectable } from "@angular/core";
 import { AngularFireList, AngularFireDatabase, AngularFireObject } from "angularfire2/database";
+import { List } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
+import { FirebaseDatabase } from '@firebase/database-types';
 
 
 @Injectable()
 export class ContactService{
     
-    contactos: AngularFireList<Contact> = null;
+    contactos: Observable<Contact[]> = null;
     contacto: AngularFireObject<Contact> = null;
     userId: string;
 
@@ -19,27 +22,22 @@ export class ContactService{
     
       
     //Devuelve la lista de contactos de un usuario determinado
-    getContactosUsuario(): AngularFireList<Contact> {
+   /* getContactosUsuario(): Observable<Contact[]> {
         if (!this.userId) return;
-        this.contactos = this.db.list<Contact>('contactos/${this.userId}');
+        this.contactos = this.db.list<Contact>(`perfiles/${this.userId}/contactos`).valueChanges();
         return this.contactos;
-    }
-    
+    }*/
+
     //Devuelve todos los usuarios disponibles
-    getContactos(): AngularFireList<Contact> {
-      this.contactos = this.db.list<Contact>('perfiles');
+    getContactos(): Observable<Contact[]> {
+      this.contactos = this.db.list<Contact>(`perfiles`, ref => {
+        let q =ref.orderByChild('nombre')
+        return q;
+      }).valueChanges();
+      //this.contactos = this.db.list<Contact>(`perfiles`);
       return this.contactos;
     }
-    //Al añadir el contacto a la bd general
-    addContacto(contacto: Contact)  {
-      this.contactos = this.db.list<Contact>('contactosDisponibles');
-      return this.contactos.push(contacto);
-    }
-    //Al añadir el contacto se asocia directamente al usuario que lo ha creado
-    addContactoUsuario(contacto: Contact)  {
-        this.contactos = this.db.list<Contact>('contactos/${this.userId}');
-        return this.contactos.push(contacto);
-      }
+
     /*
     Esto no hay que hacerlo asi, se hace solo por firebase
     removeContact(value: Contact)
