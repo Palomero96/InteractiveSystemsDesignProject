@@ -17,7 +17,7 @@
         <ion-card-content>
           <ion-list>
             <ion-item *ngFor="let contact of contacts$ | async">
-                <p><strong>{{contact.nombre}} {{contact.apellidos}}</strong> <button ion-button>+</button></p>
+                <p><strong>{{contact.nombre}} {{contact.apellidos}}</strong> <button ion-button (click) = "addAmigo(contact.id)">+</button></p>
                 
             </ion-item>
           </ion-list>
