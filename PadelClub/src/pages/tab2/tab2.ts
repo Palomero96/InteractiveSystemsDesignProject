@@ -19,29 +19,23 @@ import { AngularFireAuth } from 'angularfire2/auth';
   templateUrl: 'tab2.html',
 })
 export class Tab2Page {
-  chat1$: Observable<Chat[]>;
-  chat2$: Observable<Chat[]>;
-  chat:Chat;
+  chats1: Observable<{}>;
+  chats2: Observable<{}>;
+  
+  chats: Observable<{}>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private ChatService:ChatService,private afAuth: AngularFireAuth) {
   }
   
   ionViewWillEnter(){
-      /*  this.afAuth.authState.take(1).subscribe(data=>{
-
-   
-    this.chat1$ = this.ChatService
-    .getUserChats1(data.uid) //Retorna la DB
-    .snapshotChanges() //retorna los cambios en la DB (key and value)
-    .map(
-    changes => {return changes.map(c=> ({key: c.payload.key, ...c.payload.val()}));});
     
-    this.chat2$ = this.ChatService
-    .getUserChats2(data.uid) //Retorna la DB
-    .snapshotChanges() //retorna los cambios en la DB (key and value)
-    .map(
-    changes => {return changes.map(c=> ({key: c.payload.key, ...c.payload.val()}));});
-   }) */
+        this.afAuth.authState.take(1).subscribe(data=>{
+         
+        this.chats1 = this.ChatService.getChats1(data.uid);
+        this.chats2 = this.ChatService.getChats2(data.uid);
+   
+    
+   })
   }
 
   /* Cuando hagamos la funcion del click para el boton habra que
@@ -52,7 +46,7 @@ export class Tab2Page {
   }
   irConversacion(chat ){
     this.navCtrl.push(ConversacionPage,{
-    item:chat.chatid
+    chatid:chat.chatid
     });
     }
 }
