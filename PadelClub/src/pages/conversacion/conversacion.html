@@ -9,9 +9,9 @@
   <ion-list>
     <ion-item *ngFor="let mensaje of mensajes$ | async">
         <!-- Habra que ver el stilo que le damos -->
-        <ion-card> {{mensaje.origen}} dice:{{mensaje.contenido}}</ion-card>
+        <ion-card> <strong>{{mensaje.nombre_origen}}</strong> dice: {{mensaje.contenido}}</ion-card>
       </ion-item>
   </ion-list>
 <!-- Escribir mensaje -->
-<ion-input (ngModel)]="enviar" name="enviar"></ion-input><button ion-button (click)="enviarMensaje()">Enviar</button>
+<ion-input [(ngModel)]="enviar" name="enviar"></ion-input><button ion-button (click)="enviarMensaje()">Enviar</button>
 </ion-content>

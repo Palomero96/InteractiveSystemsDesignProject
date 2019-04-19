@@ -1,14 +1,14 @@
 import { ContactService } from './../../services/contact.service';
 import { AddContactoPage } from './../add-contacto/add-contacto';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Toast, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
-import { Contact } from '../../models/contact.model';
+import { AngularFireDatabase} from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { ConversacionPage } from '../conversacion/conversacion';
 import { ChatService } from '../../services/chat.service';
 import { Chat } from '../../models/chat.model';
+import { isEmpty } from '@firebase/util';
 
 /**
  * Generated class for the Tab5Page page.
@@ -61,26 +61,33 @@ export class Tab5Page {
       //No se muy bien porque me da error esto
       //REVISAR
       console.log(this.chatid);
-     /* this.chat = await this.chatService.getChatP(data.uid, this.userid); //retorna los cambios en la DB (key and value)
-*/
+     /*this.chat = await this.chatService.getChatP(data.uid, this.userid); //retorna los cambios en la DB (key and value)
+ */
 
-      
+ //--------**********-------- CONVENDRÍA CAMBIAR ESTO PARA COMPROBAR SI EXISTE O NO EL CHAT
+      /*if(this.afDataBase.list<Chat>(`chat`, ref => ref.orderByChild(this.chatid).equalTo(this.chatid)).valueChanges())
+      {*/
+        console.log("Creacion chat")
         this.chat ={
         chatid: this.chatid,
         user1: data.uid,
         user2:this.userid,
         }
         this.afAuth.authState.take(1).subscribe(auth => {
-          this.afDataBase.object(`chat/${auth.uid}/${this.chat.user2}`).set(value);
-          this.afDataBase.object(`chat/${this.chat.user2}/${auth.uid}`).set(value);
+          this.afDataBase.object(`chat/${this.chatid}`).set(this.chat).then(()=>
+              this.navCtrl.setRoot(ConversacionPage,
+                {chatid:this.chatid,
+                userdest:this.userid,}));
         });
-       
-  this.navCtrl.push(ConversacionPage,{
+      }
+     /* else
+       this.navCtrl.push(ConversacionPage,{
               chatid:this.chatid,
               userdest:this.userid,
               });
-    }
-    )}
+  }*/
+    )
+  }
   nuevoAmigo()
   {
     this.navCtrl.push(AddContactoPage);

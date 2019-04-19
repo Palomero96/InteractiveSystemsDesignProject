@@ -13,11 +13,11 @@ export class MensajeService{
     constructor(private db:AngularFireDatabase){
     }
     getMensajes(chatId):AngularFireList<Mensaje>{
-        this.mensajes=this.db.list<Mensaje>("mensajes/${chatId}");
+        this.mensajes=this.db.list<Mensaje>(`mensajes/${chatId}`);
         return this.mensajes;
     }
     addMensaje(value: Mensaje, chatId){
-        this.mensajes=this.db.list<Mensaje>("mensajes/${chatId}");
+        this.mensajes=this.db.list<Mensaje>(`mensajes/${chatId}`);
         return this.mensajes.push(value);
     }
 

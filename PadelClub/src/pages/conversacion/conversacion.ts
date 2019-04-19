@@ -1,3 +1,4 @@
+import { ContactService } from './../../services/contact.service';
 import { ChatService } from './../../services/chat.service';
 import { Contact } from './../../models/contact.model';
 import { MensajeService } from './../../services/mensaje.service';
@@ -7,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { Mensaje } from '../../models/mensaje.model';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Chat } from '../../models/chat.model';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { AngularFireObject, AngularFireDatabase } from 'angularfire2/database';
 
 /**
  * Generated class for the ConversacionPage page.
@@ -22,26 +23,86 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   templateUrl: 'conversacion.html',
 })
 export class ConversacionPage {
+  servicioContacto: ContactService;
+  contactoDestino: Contact;
+  contactoOrigen: Contact;
   Contact:Contact; //MIRar como obtener ese dato
   mensajes$:Observable<Mensaje[]>;
   chatid:string; //mirar como obtener ese dato
-  Chat:any;
+  Chat:Chat;
+  chatAFO: AngularFireObject<Chat>;
   chats:Observable<Chat[]>;
-  ChatService: ChatService
+  servicioChat: ChatService;
   userdest:string;
   mensaje:Mensaje;
   enviar:string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private MensajeService:MensajeService,private afAuth: AngularFireAuth) {
-  this.chatid = navParams.get("chatid")
+  constructor(private afDataBase: AngularFireDatabase,
+    public navCtrl: NavController, public navParams: NavParams, private MensajeService:MensajeService,private afAuth: AngularFireAuth) {
+  this.chatid = navParams.get("chatid");
+  this.userdest = navParams.get("userdest");
   
   }
   ionViewWillEnter(){
-    //REVISAR
-    this.Chat=this.ChatService.getChat(this.chatid).snapshotChanges() //retorna los cambios en la DB (key and value)
-    .map(
-    changes => {return changes.map(c=> ({key: c.payload.key, ...c.payload.val()}));});
+    this.chatAFO = this.afDataBase.object<Chat>(`chat/${this.chatid}`);
+    this.chatAFO.snapshotChanges().subscribe(async action => {
+        console.log(action.type);
+        console.log(action.key)
+        console.log(action.payload.val())
+        this.Chat = await action.payload.val();
+
+        this.afAuth.authState.subscribe(data=>{
+          console.log("USER1  "+this.Chat.user1);
+          console.log("DATAuid  "+ data.uid);
+          if(this.Chat.user1 == data.uid){
+            this.userdest=this.Chat.user2;
+          }else{
+            this.userdest=this.Chat.user1;
+          }
+         /* this.servicioContacto.getContacto(data.uid).then((valueOrigen: Contact) =>
+          {
+            this.contactoOrigen = valueOrigen;
+          })
+          this.servicioContacto.getContacto(this.userdest).then((valueDestino: Contact) =>
+          {
+            this.contactoDestino = valueDestino;
+          })*/
+        });
+
+  
+      })
     
-    this.afAuth.authState.take(1).subscribe(data=>{
+      //Habra que darle un valor al chatID en funcion del que haya clickado
+      this.mensajes$ = this.MensajeService
+      .getMensajes(this.chatid).valueChanges(); //Retorna la DB;
+      }
+  
+      enviarMensaje() {
+  
+      this.afAuth.authState.take(1).subscribe(data=>{
+        this.mensaje ={
+          id: this.chatid,
+          origen: data.uid,//falta modificar esto para lo del id
+          //nombre_origen: this.contactoOrigen.nombre,
+          destinatario: this.userdest,
+         // nombre_destinatario: this.contactoDestino.nombre,
+          contenido:this.enviar,
+        }
+        this.MensajeService.addMensaje(this.mensaje, this.chatid);
+      })
+    //this.chat=this.servicioChat.getUnChat(this.chatid);
+  }
+  
+  /*ionViewWillEnter(){
+    //REVISAR
+    console.log("Aquí llego "+ this.chatid)
+    try {
+      this.Chat=this.servicioChat.getChat(this.chatid);
+    } catch (error) {
+      console.log(error)
+    }
+    
+    
+    this.afAuth.authState.subscribe(data=>{
     if(this.Chat.user1==data.uid){
       this.userdest=this.Chat.user2;
     }else{
@@ -52,10 +113,7 @@ export class ConversacionPage {
     })
     //Habra que darle un valor al chatID en funcion del que haya clickado
     this.mensajes$ = this.MensajeService
-    .getMensajes(this.chatid) //Retorna la DB
-    .snapshotChanges() //retorna los cambios en la DB (key and value)
-    .map(
-    changes => {return changes.map(c=> ({key: c.payload.key, ...c.payload.val()}));});
+    .getMensajes(this.chatid).valueChanges(); //Retorna la DB;
     }
 
    enviarMensaje() {
@@ -74,6 +132,5 @@ export class ConversacionPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConversacionPage');
-  }
-
+  }*/
 }

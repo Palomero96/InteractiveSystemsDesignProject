@@ -36,14 +36,13 @@ export class AddContactoPage {
     console.log('ionViewDidLoad AddContactoPage');
   }
 
-  addAmigo(value)
+  addAmigo(value:string)
   {
     this.afAuth.authState.take(1).subscribe(auth => {
       this.afDataBase.object(`perfil/${auth.uid}/amigos/`).set({id:value});
-    })
-    this.afAuth.authState.take(1).subscribe(auth => {
       this.afDataBase.object(`perfil/${value}/amigos/`).set({id:auth.uid}).then(() => this.navCtrl.pop());
     })
+  
   }
 
   back()

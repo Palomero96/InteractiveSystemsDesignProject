@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class ContactService{
     
+    contactoAuxiliar: Contact = null;
     contactos: Observable<Contact[]> = null;
     amigos: Observable<Contact[]> = null;
     contacto: AngularFireObject<Contact> = null;
@@ -26,6 +27,14 @@ export class ContactService{
         return this.contactos;
     }*/
 
+    async getContacto(id:string): Promise<Contact>
+    {
+      this.contacto = this.db.object<Contact>(`perfil/${id}`);
+      this.contacto.snapshotChanges().subscribe(async action => {
+          this.contactoAuxiliar = await action.payload.val();
+        });
+      return this.contactoAuxiliar;
+    }
     //Devuelve todos los usuarios disponibles
     getContactos(): Observable<Contact[]> {
       this.contactos = this.db.list<Contact>(`perfil`, ref => ref.orderByChild(`nombre`)).valueChanges();
