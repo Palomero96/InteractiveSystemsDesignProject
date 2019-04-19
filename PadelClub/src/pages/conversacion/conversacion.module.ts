@@ -8,10 +8,6 @@ import { ConversacionPage } from './conversacion';
   declarations: [
     ConversacionPage,
   ],
-  providers:[
-    ChatService,
-
-  ],
   imports: [
     IonicPageModule.forChild(ConversacionPage),
   ],

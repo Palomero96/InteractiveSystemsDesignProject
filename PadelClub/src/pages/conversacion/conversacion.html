@@ -8,7 +8,7 @@
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let mensaje of mensajes$ | async">
-        <!-- Habra que ver el stilo que le damos -->
+        
         <ion-card> <strong>{{mensaje.origen}}</strong> dice: {{mensaje.contenido}}</ion-card>
       </ion-item>
   </ion-list>

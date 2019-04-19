@@ -9,6 +9,7 @@ import { Mensaje } from '../../models/mensaje.model';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Chat } from '../../models/chat.model';
 import { AngularFireObject, AngularFireDatabase } from 'angularfire2/database';
+import { Tab5Page } from '../tab5/tab5';
 
 /**
  * Generated class for the ConversacionPage page.
@@ -46,12 +47,13 @@ export class ConversacionPage {
   
   }
    async ionViewWillEnter(){
+     //Obtenemos el chat correspondiente
     this.chatAFO = this.afDataBase.object<Chat>(`chat/${this.chatid}`);
     this.chatAFO.snapshotChanges().subscribe(async action => {
         this.Chat = await action.payload.val();
         this.afAuth.authState.subscribe(async data=>{
-         // console.log("USER1  "+ this.Chat.user1);
         
+
          if(this.Chat.user1 == data.uid){
             this.userdest=this.Chat.user2;
           }else{
@@ -78,12 +80,7 @@ export class ConversacionPage {
         
   
       })
-
-   //onsole.log("Nombre "+ this.contactoUno.nombre)
-      //  console.log("Nombre2 "+ this.contactoDos.nombre)
-      //Habra que darle un valor al chatID en funcion del que haya clickado
-      this.mensajes$ = this.MensajeService
-      .getMensajes(this.chatid).valueChanges(); //Retorna la DB;
+      this.mensajes$ = this.MensajeService.getMensajes(this.chatid).valueChanges();
       }
   
       enviarMensaje() {
@@ -99,5 +96,9 @@ export class ConversacionPage {
         this.MensajeService.addMensaje(this.mensaje, this.chatid);
       })
     
+  }
+
+  ionViewWillLeave(){
+   this.navCtrl.setRoot(Tab5Page);
   }
 }

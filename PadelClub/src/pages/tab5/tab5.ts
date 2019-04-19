@@ -57,18 +57,9 @@ export class Tab5Page {
   irConversacion(useridcontacto ){
     this.userid=useridcontacto;
     this.afAuth.authState.take(1).subscribe(async data=>{
-      //de esta manera el id sera el mismo da igual quien cree la conversacion
+      //De esta manera el id sera el mismo da igual quien cree la conversacion
       this.chatid = 'chat_'+(data.uid<this.userid ? data.uid+'_'+this.userid : this.userid+'_'+data.uid);
-      //No se muy bien porque me da error esto
-      //REVISAR
-      console.log(this.chatid);
-     /*this.chat = await this.chatService.getChatP(data.uid, this.userid); //retorna los cambios en la DB (key and value)
- */
-
- //--------**********-------- CONVENDRÍA CAMBIAR ESTO PARA COMPROBAR SI EXISTE O NO EL CHAT
-      /*if(this.afDataBase.list<Chat>(`chat`, ref => ref.orderByChild(this.chatid).equalTo(this.chatid)).valueChanges())
-      {*/
-        console.log("Creacion chat")
+        //Damos valores al chat
         this.chat ={
         chatid: this.chatid,
         user1: data.uid,
@@ -80,12 +71,6 @@ export class Tab5Page {
                 {chatid:this.chatid,
                 userdest:this.userid,})
       }
-     /* else
-       this.navCtrl.push(ConversacionPage,{
-              chatid:this.chatid,
-              userdest:this.userid,
-              });
-  }*/
     )
   }
   nuevoAmigo()
