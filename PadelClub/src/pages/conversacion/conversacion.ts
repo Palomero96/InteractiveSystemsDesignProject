@@ -24,20 +24,22 @@ import { AngularFireObject, AngularFireDatabase } from 'angularfire2/database';
 })
 export class ConversacionPage {
   servicioContacto: ContactService;
-  contactoDestino: Contact;
-  contactoOrigen: Contact;
+  contactoUno: Contact;
+  contactoAuxiliar: AngularFireObject<Contact>;
+  contactoDos: Contact;
   Contact:Contact; //MIRar como obtener ese dato
   mensajes$:Observable<Mensaje[]>;
   chatid:string; //mirar como obtener ese dato
   Chat:Chat;
   chatAFO: AngularFireObject<Chat>;
+  contactoAFO: AngularFireObject<Contact>;
   chats:Observable<Chat[]>;
   servicioChat: ChatService;
   userdest:string;
   mensaje:Mensaje;
   enviar:string;
   constructor(private afDataBase: AngularFireDatabase,
-    public navCtrl: NavController, public navParams: NavParams, private MensajeService:MensajeService,private afAuth: AngularFireAuth) {
+    public navCtrl: NavController, public navParams: NavParams, private MensajeService:MensajeService,private ContactService:ContactService,private afAuth: AngularFireAuth) {
   this.chatid = navParams.get("chatid");
   this.userdest = navParams.get("userdest");
   
@@ -50,7 +52,7 @@ export class ConversacionPage {
         console.log(action.payload.val())
         this.Chat = await action.payload.val();
 
-        this.afAuth.authState.subscribe(data=>{
+        this.afAuth.authState.subscribe(async data=>{
           console.log("USER1  "+this.Chat.user1);
           console.log("DATAuid  "+ data.uid);
           if(this.Chat.user1 == data.uid){
@@ -58,19 +60,33 @@ export class ConversacionPage {
           }else{
             this.userdest=this.Chat.user1;
           }
-         /* this.servicioContacto.getContacto(data.uid).then((valueOrigen: Contact) =>
+         /*this.ContactService.getContacto(data.uid).then((valueOrigen: Contact) =>
           {
-            this.contactoOrigen = valueOrigen;
-          })
+            this.contactoUno = valueOrigen;
+            
+          })*/
+           /*
           this.servicioContacto.getContacto(this.userdest).then((valueDestino: Contact) =>
           {
             this.contactoDestino = valueDestino;
           })*/
-        });
 
+         /* this.contactoAuxiliar = this.afDataBase.object<Contact>(`perfil/${data.uid}`);
+          this.contactoAuxiliar.snapshotChanges().subscribe(async action => {
+          this.contactoUno = await action.payload.val();
+          console.log("Nombre "+ this.contactoUno.nombre)
+        });*/
+          
+        this.contactoUno = await this.ContactService.getContacto(data.uid);
+        this.contactoDos = await this.ContactService.getContacto(this.userdest);
+        console.log("Recibo esto " + await this.ContactService.getContacto(data.uid))
+        });
+        
   
       })
-    
+
+    console.log("Nombre "+ this.contactoUno.nombre)
+        console.log("Nombre2 "+ this.contactoDos.nombre)
       //Habra que darle un valor al chatID en funcion del que haya clickado
       this.mensajes$ = this.MensajeService
       .getMensajes(this.chatid).valueChanges(); //Retorna la DB;

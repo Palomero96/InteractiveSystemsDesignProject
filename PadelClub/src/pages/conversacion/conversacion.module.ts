@@ -10,7 +10,7 @@ import { ConversacionPage } from './conversacion';
   ],
   providers:[
     ChatService,
-    ContactService,
+
   ],
   imports: [
     IonicPageModule.forChild(ConversacionPage),

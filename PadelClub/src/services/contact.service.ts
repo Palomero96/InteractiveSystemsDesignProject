@@ -27,13 +27,16 @@ export class ContactService{
         return this.contactos;
     }*/
 
-    async getContacto(id:string): Promise<Contact>
+     getContacto(id:string): Promise<Contact>
     {
       this.contacto = this.db.object<Contact>(`perfil/${id}`);
       this.contacto.snapshotChanges().subscribe(async action => {
+        console.log(action.payload.val())
           this.contactoAuxiliar = await action.payload.val();
+          console.log(" AUX "+this.contactoAuxiliar)
+          return await action.payload.val();
         });
-      return this.contactoAuxiliar;
+      return;
     }
     //Devuelve todos los usuarios disponibles
     getContactos(): Observable<Contact[]> {
