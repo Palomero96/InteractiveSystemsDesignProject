@@ -15,21 +15,20 @@ export class ChatService {
     constructor(private afAuth: AngularFireAuth, private afDataBase: AngularFireDatabase,) {
     }
     addChat(value: Chat ) {
-        this.afAuth.authState.take(1).subscribe(auth => {
-            this.afDataBase.object(`chat/${auth.uid}/${value.user2}`).set(value);
-            this.afDataBase.object(`chat/${value.user2}/${auth.uid}`).set(value);
-          }); 
+        this.afDataBase.list(`chat/`).push(this.chat); 
     }
 
-    getUnChat(chatid:string): Chat {
-        this.chatAFO = this.afDataBase.object<Chat>(`chat/${chatid}`);
+    async getUnChat(chatid:string) {
+
+        /*this.chatAFO = this.afDataBase.object<Chat>(`chat/${chatid}`);
         this.chatAFO.snapshotChanges().subscribe(action => {
         console.log(action.type);
         console.log(action.key)
         console.log(action.payload.val())
         this.chat = action.payload.val();
-        });
-        return this.chat;
+        });*/
+        console.log(this.afDataBase.object<Chat>(`chat/${chatid}`))
+        return await this.afDataBase.object(`chat/${chatid}`);
       }
 
     // HABRA que modificar los parametros que recibe el metodo

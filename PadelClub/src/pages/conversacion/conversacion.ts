@@ -35,58 +35,52 @@ export class ConversacionPage {
   contactoAFO: AngularFireObject<Contact>;
   chats:Observable<Chat[]>;
   servicioChat: ChatService;
+  userorigen:string;
   userdest:string;
   mensaje:Mensaje;
   enviar:string;
-  constructor(private afDataBase: AngularFireDatabase,
+  constructor(private afDataBase: AngularFireDatabase, private ChatService: ChatService,
     public navCtrl: NavController, public navParams: NavParams, private MensajeService:MensajeService,private ContactService:ContactService,private afAuth: AngularFireAuth) {
   this.chatid = navParams.get("chatid");
   this.userdest = navParams.get("userdest");
   
   }
-  ionViewWillEnter(){
+   async ionViewWillEnter(){
     this.chatAFO = this.afDataBase.object<Chat>(`chat/${this.chatid}`);
     this.chatAFO.snapshotChanges().subscribe(async action => {
-        console.log(action.type);
-        console.log(action.key)
-        console.log(action.payload.val())
         this.Chat = await action.payload.val();
-
         this.afAuth.authState.subscribe(async data=>{
-          console.log("USER1  "+this.Chat.user1);
-          console.log("DATAuid  "+ data.uid);
-          if(this.Chat.user1 == data.uid){
+         // console.log("USER1  "+ this.Chat.user1);
+        
+         if(this.Chat.user1 == data.uid){
             this.userdest=this.Chat.user2;
           }else{
             this.userdest=this.Chat.user1;
           }
-         /*this.ContactService.getContacto(data.uid).then((valueOrigen: Contact) =>
-          {
-            this.contactoUno = valueOrigen;
-            
-          })*/
-           /*
-          this.servicioContacto.getContacto(this.userdest).then((valueDestino: Contact) =>
-          {
-            this.contactoDestino = valueDestino;
-          })*/
-
-         /* this.contactoAuxiliar = this.afDataBase.object<Contact>(`perfil/${data.uid}`);
+          //Obtenemos el nombre del usuario origen
+          this.contactoAuxiliar = this.afDataBase.object<Contact>(`perfil/${data.uid}`);
           this.contactoAuxiliar.snapshotChanges().subscribe(async action => {
           this.contactoUno = await action.payload.val();
           console.log("Nombre "+ this.contactoUno.nombre)
-        });*/
-          
-        this.contactoUno = await this.ContactService.getContacto(data.uid);
-        this.contactoDos = await this.ContactService.getContacto(this.userdest);
-        console.log("Recibo esto " + await this.ContactService.getContacto(data.uid))
+          this.userorigen=this.contactoUno.nombre;
+        });
+        //Obtenemos el nombre del usuario al que queremos enviar mensajes
+        this.contactoAuxiliar = this.afDataBase.object<Contact>(`perfil/${this.userdest}`);
+        this.contactoAuxiliar.snapshotChanges().subscribe(async action => {
+        this.contactoDos = await action.payload.val();
+        console.log("Nombre "+ this.contactoDos.nombre)
+        this.userdest=this.contactoDos.nombre + "  " + this.contactoDos.apellidos;
+      });
+        
+        
+        
         });
         
   
       })
 
-    console.log("Nombre "+ this.contactoUno.nombre)
-        console.log("Nombre2 "+ this.contactoDos.nombre)
+   //onsole.log("Nombre "+ this.contactoUno.nombre)
+      //  console.log("Nombre2 "+ this.contactoDos.nombre)
       //Habra que darle un valor al chatID en funcion del que haya clickado
       this.mensajes$ = this.MensajeService
       .getMensajes(this.chatid).valueChanges(); //Retorna la DB;
@@ -97,56 +91,13 @@ export class ConversacionPage {
       this.afAuth.authState.take(1).subscribe(data=>{
         this.mensaje ={
           id: this.chatid,
-          origen: data.uid,//falta modificar esto para lo del id
-          //nombre_origen: this.contactoOrigen.nombre,
-          destinatario: this.userdest,
-         // nombre_destinatario: this.contactoDestino.nombre,
+          origen: this.contactoUno.nombre,
+          destinatario: this.contactoDos.nombre,
           contenido:this.enviar,
         }
+        this.enviar="";
         this.MensajeService.addMensaje(this.mensaje, this.chatid);
       })
-    //this.chat=this.servicioChat.getUnChat(this.chatid);
+    
   }
-  
-  /*ionViewWillEnter(){
-    //REVISAR
-    console.log("Aquí llego "+ this.chatid)
-    try {
-      this.Chat=this.servicioChat.getChat(this.chatid);
-    } catch (error) {
-      console.log(error)
-    }
-    
-    
-    this.afAuth.authState.subscribe(data=>{
-    if(this.Chat.user1==data.uid){
-      this.userdest=this.Chat.user2;
-    }else{
-      this.userdest=this.Chat.user1;
-    }
-    
-
-    })
-    //Habra que darle un valor al chatID en funcion del que haya clickado
-    this.mensajes$ = this.MensajeService
-    .getMensajes(this.chatid).valueChanges(); //Retorna la DB;
-    }
-
-   enviarMensaje() {
-
-    this.afAuth.authState.take(1).subscribe(data=>{
-
-     this.mensaje ={
-        id: this.chatid,
-        origen: data.uid,//falta modificar esto para lo del id
-        destinatario: this.userdest,
-        contenido:this.enviar,
-     }
-     this.MensajeService.addMensaje(this.mensaje, this.chatid);
-    })
-   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ConversacionPage');
-  }*/
 }

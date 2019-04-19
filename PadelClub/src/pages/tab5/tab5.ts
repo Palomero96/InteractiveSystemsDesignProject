@@ -31,6 +31,7 @@ export class Tab5Page {
   amigosPerfil: Observable<{}>;
 
   constructor(private toast:ToastController, private conService: ContactService,
+    private ChatService: ChatService,
     private afAuth: AngularFireAuth, private afDataBase: AngularFireDatabase,
     public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -73,12 +74,11 @@ export class Tab5Page {
         user1: data.uid,
         user2:this.userid,
         }
-        this.afAuth.authState.take(1).subscribe(auth => {
-          this.afDataBase.object(`chat/${this.chatid}`).set(this.chat).then(()=>
-              this.navCtrl.setRoot(ConversacionPage,
+        this.ChatService.addChat(this.chat);
+        console.log("Chat creado")
+        this.navCtrl.setRoot(ConversacionPage,
                 {chatid:this.chatid,
-                userdest:this.userid,}));
-        });
+                userdest:this.userid,})
       }
      /* else
        this.navCtrl.push(ConversacionPage,{
