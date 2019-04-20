@@ -10,6 +10,4 @@ export interface Clase{
     nivel: string;
     dia: string;
     hora: string;
-    pista:number; //En nuestro caso habra dos pistas
-    //alumnos: //Parecido a los contacto. Cuando este lo de los contactos se hace la clase servicio
 }
