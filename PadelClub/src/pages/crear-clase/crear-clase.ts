@@ -20,8 +20,6 @@ export class CrearClasePage {
   };
 
   claseData: {
-    fechaIni: string,
-    fechaFin: string,
     diaSemana: string,
     hora: string,
     nivel: string,
@@ -31,8 +29,6 @@ export class CrearClasePage {
   constructor(private navParams: NavParams, private view: ViewController) {
      this.data = this.navParams.get('data');
      this.claseData = {
-      fechaIni: "",
-      fechaFin: "",
       diaSemana: "",
       hora: "",
       nivel: "",

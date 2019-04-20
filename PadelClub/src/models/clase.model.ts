@@ -5,8 +5,6 @@ export interface Clase{
     profesor:string;
     plazasmax:number;
     numeroactual:number;
-    fechaini: string;
-    fechafin: string;
     nivel: string;
     dia: string;
     hora: string;
