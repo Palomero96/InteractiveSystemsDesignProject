@@ -3,12 +3,13 @@ import { AddContactoPage } from './../add-contacto/add-contacto';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase} from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireObject} from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { ConversacionPage } from '../conversacion/conversacion';
 import { ChatService } from '../../services/chat.service';
 import { Chat } from '../../models/chat.model';
 import { isEmpty } from '@firebase/util';
+import { Contact } from '../../models/contact.model';
 
 /**
  * Generated class for the Tab5Page page.
@@ -22,16 +23,10 @@ import { isEmpty } from '@firebase/util';
   templateUrl: 'tab5.html',
 })
 export class Tab5Page {
-  userid:string;
-  chat:Chat;
-  chats:Observable<Chat[]>=null;
-  chatid:string;
-  chatService:ChatService;
+  
   datosPerfil: Observable<{}>;
-  amigosPerfil: Observable<{}>;
-
-  constructor(private toast:ToastController, private conService: ContactService,
-    private ChatService: ChatService,
+ 
+  constructor(private toast:ToastController,
     private afAuth: AngularFireAuth, private afDataBase: AngularFireDatabase,
     public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -41,7 +36,7 @@ export class Tab5Page {
       if(data && data.email && data.uid)
       {
         this.datosPerfil = this.afDataBase.object(`perfil/${data.uid}`).valueChanges();
-        this.amigosPerfil = this.conService.getAmigos(data.uid);
+    
       }
       else
       {
@@ -53,29 +48,4 @@ export class Tab5Page {
     })
     console.log('ionViewDidLoad Tab5Page');
   }
-
-  irConversacion(useridcontacto ){
-    this.userid=useridcontacto;
-    this.afAuth.authState.take(1).subscribe(async data=>{
-      //De esta manera el id sera el mismo da igual quien cree la conversacion
-      this.chatid = 'chat_'+(data.uid<this.userid ? data.uid+'_'+this.userid : this.userid+'_'+data.uid);
-        //Damos valores al chat
-        this.chat ={
-        chatid: this.chatid,
-        user1: data.uid,
-        user2:this.userid,
-        }
-        this.ChatService.addChat(this.chat);
-        console.log("Chat creado")
-        this.navCtrl.setRoot(ConversacionPage,
-                {chatid:this.chatid,
-                userdest:this.userid,})
-      }
-    )
-  }
-  nuevoAmigo()
-  {
-    this.navCtrl.push(AddContactoPage);
-  }
-
 }

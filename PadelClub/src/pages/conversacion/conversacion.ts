@@ -40,6 +40,8 @@ export class ConversacionPage {
   userdest:string;
   mensaje:Mensaje;
   enviar:string;
+  nombre1:string;
+  nombre2:string;
   constructor(private afDataBase: AngularFireDatabase, private ChatService: ChatService,
     public navCtrl: NavController, public navParams: NavParams, private MensajeService:MensajeService,private ContactService:ContactService,private afAuth: AngularFireAuth) {
   this.chatid = navParams.get("chatid");
@@ -56,11 +58,15 @@ export class ConversacionPage {
 
          if(this.Chat.user1 == data.uid){
             this.userdest=this.Chat.user2;
+            this.nombre2=this.Chat.nombre2;
+            this.nombre1=this.Chat.nombre1;
           }else{
             this.userdest=this.Chat.user1;
+            this.nombre1=this.Chat.nombre2;
+            this.nombre2=this.Chat.nombre1;
           }
           //Obtenemos el nombre del usuario origen
-          this.contactoAuxiliar = this.afDataBase.object<Contact>(`perfil/${data.uid}`);
+         /* this.contactoAuxiliar = this.afDataBase.object<Contact>(`perfil/${data.uid}`);
           this.contactoAuxiliar.snapshotChanges().subscribe(async action => {
           this.contactoUno = await action.payload.val();
           console.log("Nombre "+ this.contactoUno.nombre)
@@ -72,7 +78,7 @@ export class ConversacionPage {
         this.contactoDos = await action.payload.val();
         console.log("Nombre "+ this.contactoDos.nombre)
         this.userdest=this.contactoDos.nombre + "  " + this.contactoDos.apellidos;
-      });
+      });*/
         
         
         
@@ -88,8 +94,8 @@ export class ConversacionPage {
       this.afAuth.authState.take(1).subscribe(data=>{
         this.mensaje ={
           id: this.chatid,
-          origen: this.contactoUno.nombre,
-          destinatario: this.contactoDos.nombre,
+          origen: this.nombre1,
+          destinatario: this.nombre2,
           contenido:this.enviar,
         }
         this.enviar="";
