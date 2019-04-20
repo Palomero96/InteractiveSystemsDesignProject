@@ -11,13 +11,13 @@ en el caso del alumno aparecera todal la informacion necesaria para la pagina-->
 
 <ion-content>
 <!-- Apartado del profesor-->
-<ion-card id="Profesor">
+<ion-card id="Profesor" *ngIf="this.esProfesor">
   <ion-card-content>
-    <ion-label></ion-label>
+      <button ion-button (click)="this.crearClase()">Crear Clase</button> <!-- Boton para implemental que se une a la clase-->
   </ion-card-content>
 </ion-card> 
 <!-- Apartado del profesor-->
-  <ion-card id="Alumno">       
+  <ion-card id="Alumno" *ngIf="!this.esProfesor">       
         <ion-card-content>
             <!--<select name="clases" [(ngModel)]='Clases'> Cuando Implementemos la informacion tendremos que poner correctamente el select-->
               <!--  <option *ngFor='let clase of clases; let i=index' value="{{i}}">{{prod[0]}} ({{prod[1]}} €)</option>
@@ -30,9 +30,7 @@ en el caso del alumno aparecera todal la informacion necesaria para la pagina-->
             <ion-label>Nivel:</ion-label><br>
             <ion-label>Plazas:</ion-label><br>
             <ion-label>Alumnos:</ion-label><br>
-            <button ion-button *ngIf="!this.esProfesor">Inscribirse</button> <!-- Boton para implemental que se une a la clase-->
-            <button ion-button *ngIf="this.esProfesor" (click)="this.crearClase()">Crear Clase</button> <!-- Boton para implemental que se une a la clase-->
-
+            
         </ion-card-content>
 </ion-card>
 </ion-content>
