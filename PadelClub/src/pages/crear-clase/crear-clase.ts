@@ -1,5 +1,11 @@
+import { ContactService } from './../../services/contact.service';
+import { ClaseService } from './../../services/clase.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+import { Clase } from '../../models/clase.model';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Generated class for the CrearClasePage page.
@@ -14,46 +20,46 @@ import { IonicPage, NavParams, ViewController } from 'ionic-angular';
   templateUrl: 'crear-clase.html',
 })
 export class CrearClasePage {
-  data: {
-    userId: string,
-    userName: string
-  };
+  datosClase: Clase;
+  datosPerfil: Observable<{}>;
+  userId: string;
+  userName: string;
+  dia:string;
+  hora:string;
+  nivel:string;
+  plazasmax:number;
+  claseData: Clase;
 
-  claseData: {
-    diaSemana: string,
-    hora: string,
-    nivel: string,
-    pista: string
-  };
-
-  constructor(private navParams: NavParams, private view: ViewController) {
-     this.data = this.navParams.get('data');
-     this.claseData = {
-      diaSemana: "",
-      hora: "",
-      nivel: "",
-      pista: ""
-    };
+  constructor(private afAuth: AngularFireAuth, private afDataBase: AngularFireDatabase,
+    private claseService: ClaseService,
+    private conService: ContactService,
+    private navParams: NavParams, private view: ViewController) {
+     
   }
 
   ionViewWillLoad() {
     // this.data = this.navParams.get('data');
-    console.log(this.data);
+    this.afAuth.authState.take(1).subscribe(async data=>{
+      this.userId=data.uid;
+      this.datosPerfil = this.afDataBase.object(`perfil/${data.uid}`).valueChanges();
+    })
+    
     // alert(data);
   }
 
   crearClaseSubmit() {
-    console.log(this.data);
-    alert("¡Nueva clase creada!");
-    this.cerrarCrearClase();
-  }
+    this.datosClase={ dia: this.dia,
+      profesor:this.userId,
+      plazasmax : this.plazasmax,
+      hora:this.hora,
+      nivel:this.nivel,
+      claseid:this.userId+this.dia+this.hora
+    }
 
-  cerrarCrearClase() {
-    const data = {
-      userId: 'profesor2',
-      userName: 'nombre_profesor2'
-    };
-    this.view.dismiss(data);
+    this.afAuth.authState.take(1).subscribe(auth => {
+      this.afDataBase.object(`clase/${this.userId}/${this.datosClase.claseid}`).set(this.datosClase);
+    })
+    this.view.dismiss();
   }
 
 }

@@ -15,7 +15,7 @@
     <ion-list>
       <ion-item-sliding *ngFor="let amigo of amigosPerfil | async">
         <ion-item>
-            <ion-label>{{amigo.nombre}} {{amigo.apellidos}} <button ion-button (click)="irConversacion(amigo.id)">Mensaje</button></ion-label>
+        <ion-label>{{amigo.nombre}} {{amigo.apellidos}} <button ion-button (click)="irConversacion(amigo.id)">Mensaje</button></ion-label>
 
         </ion-item>
         <ion-item-options side="right">

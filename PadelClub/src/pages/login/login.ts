@@ -39,7 +39,8 @@ export class LoginPage {
   {
     try{
       //Para evitar el login en el testeo
-      const result = this.afAuth.auth.signInWithEmailAndPassword("user1@test.com", "passuser1").then(()=> this.navCtrl.setRoot(TabsPage));
+      /*Login alumno*///const result = this.afAuth.auth.signInWithEmailAndPassword("user1@test.com", "passuser1").then(()=> this.navCtrl.setRoot(TabsPage));
+      /*Login profesor*/const result = this.afAuth.auth.signInWithEmailAndPassword("profe1@test.com", "passprofe1").then(()=> this.navCtrl.setRoot(TabsPage));
       
       //Esta es la llamada correcta
       //const result = this.afAuth.auth.signInWithEmailAndPassword(this.email, this.pass).then(()=> this.navCtrl.setRoot(TabsPage));

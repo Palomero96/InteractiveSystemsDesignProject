@@ -8,18 +8,54 @@
   <ion-navbar>
     <ion-title>Crear Clase</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="cerrarCrearClase()">Cerrar</button>
+      <button ion-button (click)="crearClaseSubmit()">Cerrar</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-label>Profesor: {{ data.userName }}</ion-label>
-  <ion-label>Fecha de Inicio: <ion-input type="text"  [(ngModel)]="claseData.fechaIni" name="fechaIni">Fecha de inicio</ion-input></ion-label>
-  <ion-label>Fecha de Finalización: <ion-input type="text"  [(ngModel)]="claseData.fechaFin" name="fechaFin">Fecha de finalización</ion-input></ion-label>
-  <ion-label>Día de la semana: <ion-input type="text"  [(ngModel)]="claseData.diaSemana" name="fechaIni">Día de la semana</ion-input></ion-label>
-  <ion-label>Hora: <ion-input type="text"  [(ngModel)]="claseData.hora" name="hora">Hora</ion-input></ion-label>
-  <ion-label>Nivel: <ion-input type="text"  [(ngModel)]="claseData.nivel" name="nivel">Nivel</ion-input></ion-label>
-  <ion-label>Pista: <ion-input type="text"  [(ngModel)]="claseData.pista" name="pista">Pista</ion-input></ion-label>
+  <ion-label>Profesor: {{(datosPerfil | async)?.nombre}}</ion-label>
+  <ion-item>
+    <ion-label>Día de la semana: 
+      <ion-select  [(ngModel)]="dia" name="dia" value="defDia" placeholder="Seleccione día">
+          <ion-option value="lunes">Lunes</ion-option>
+          <ion-option value="martes">Martes</ion-option>
+          <ion-option value="miercoles">Miércoles</ion-option>
+          <ion-option value="jueves">Jueves</ion-option>
+          <ion-option value="viernes">Viernes</ion-option>
+      </ion-select>
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>Hora: 
+      <ion-select  [(ngModel)]="hora" name="hora" placeholder="Seleccione hora" value="defHora">
+          <ion-option value="16:00"> 16:00</ion-option>
+          <ion-option value="17:00"> 17:00</ion-option>
+          <ion-option value="18:00"> 18:00</ion-option>
+          <ion-option value="19:00"> 19:00</ion-option>
+          <ion-option value="20:00"> 20:00</ion-option>
+      </ion-select>
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>Nivel: 
+      <ion-select type="text"  [(ngModel)]="nivel" placeholder="Nivel de clase" name="nivel" value="defNivel">
+          <ion-option value="principiante"> Principiante</ion-option>
+          <ion-option value="intermedio"> Intermedio</ion-option>
+          <ion-option value="avanzado"> Avanzado</ion-option>
+          <ion-option value="pro"> Pro</ion-option>
+      </ion-select>
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>Plazas: 
+        <ion-select  [(ngModel)]="plazasmax" name="plazas" placeholder="Número de alumnos" value="defPlazas">
+            <ion-option value="2"> 2</ion-option>
+            <ion-option value="3"> 3</ion-option>
+            <ion-option value="4"> 4</ion-option>
+            <ion-option value="5"> 5</ion-option>
+        </ion-select>
+      </ion-label>
+  </ion-item>
   <p><button ion-button (click)="crearClaseSubmit()">Crear</button></p>
 </ion-content>
