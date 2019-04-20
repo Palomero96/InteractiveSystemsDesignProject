@@ -36,7 +36,6 @@ export class Tab5Page {
       if(data && data.email && data.uid)
       {
         this.datosPerfil = this.afDataBase.object(`perfil/${data.uid}`).valueChanges();
-    
       }
       else
       {

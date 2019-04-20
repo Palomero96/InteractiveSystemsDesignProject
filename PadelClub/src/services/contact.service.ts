@@ -47,7 +47,8 @@ export class ContactService{
 
     //Devuelve los amigos de un usuario
     getAmigos(value:string): Observable<Contact[]> {
-      return this.db.list<Contact>(`perfil`, ref => ref.orderByChild(`amigos/id`).equalTo(value)).valueChanges();
+      //console.log(this.db.list<Contact>(`perfil`, ref => ref.orderByChild(`amigos/${value}`).equalTo(value)).valueChanges())
+      return this.db.list<Contact>(`perfil`, ref => ref.orderByChild(`amigos/${value}/id`).equalTo(value)).valueChanges();
       //this.contactos = this.db.list<Contact>(`perfiles`);
     }
 

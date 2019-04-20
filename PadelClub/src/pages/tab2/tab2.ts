@@ -79,9 +79,7 @@ export class Tab2Page {
                 userdest:this.userid,}));
         }); 
            
-        });
-       
-        
+        }); 
       }
     )
   }
@@ -89,12 +87,11 @@ export class Tab2Page {
   {
     this.navCtrl.push(AddContactoPage);
   }
-  /*eliminarAmigo(id:string){
+  eliminarAmigo(id:string){
     this.afAuth.authState.take(1).subscribe(auth => {
-      this.afDataBase.object(`perfil`, ref => ref.orderByChild(`amigos/id`).equalTo(value)
-      this.afDataBase.object(`perfil/${auth.uid}/amigos/id`).remove({id:value});
-      this.afDataBase.object(`perfil/${value}/amigos/`).set({id:auth.uid}).then(() => this.navCtrl.pop());
+      this.afDataBase.object(`perfil/${auth.uid}/amigos/${id}`).remove();
+      this.afDataBase.object(`perfil/${id}/amigos/${auth.uid}`).remove().then(()=> this.ionViewDidLoad());
     })
-    return this.db.list<Contact>(`perfil`, ref => ref.orderByChild(`amigos/id`).equalTo(value))
-  }*/
+  }
+
 }

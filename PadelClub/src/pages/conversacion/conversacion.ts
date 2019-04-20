@@ -10,6 +10,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Chat } from '../../models/chat.model';
 import { AngularFireObject, AngularFireDatabase } from 'angularfire2/database';
 import { Tab5Page } from '../tab5/tab5';
+import { Tab2Page } from '../tab2/tab2';
 
 /**
  * Generated class for the ConversacionPage page.
@@ -103,8 +104,7 @@ export class ConversacionPage {
       })
     
   }
-
   ionViewWillLeave(){
-   this.navCtrl.setRoot(Tab5Page);
-  }
+    this.navCtrl.setRoot(Tab2Page);
+   }
 }
