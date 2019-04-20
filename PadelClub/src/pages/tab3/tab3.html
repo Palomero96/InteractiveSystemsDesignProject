@@ -12,16 +12,28 @@ en el caso del alumno aparecera todal la informacion necesaria para la pagina-->
 <ion-content>
 <!-- Apartado del profesor-->
 <ion-card id="Profesor" *ngIf="this.esProfesor">
+<ion-card-header>
+          Mis Clases
+        </ion-card-header>
   <ion-card-content>
+    
+          <ion-list>
+          HOLAAAA
+              <ion-item *ngFor="let clase of clases | async">
+                 <!-- AUna opcion para darle formato a esto podria ser hacer un select y en funcion de la clase que seleccione se muestre.-->
+                    <ion-label> Dia: {{clase.dia}}</ion-label><br>
+                    <ion-label> Hora: {{clase.hora}}</ion-label><br>
+                    <ion-label> Nivel: {{clase.dia}}</ion-label><br>
+                  
+              </ion-item>
+          </ion-list>
       <button ion-button (click)="this.crearClase()">Crear Clase</button> <!-- Boton para implemental que se une a la clase-->
   </ion-card-content>
 </ion-card> 
-<!-- Apartado del profesor-->
+<!-- Apartado del alumno-->
   <ion-card id="Alumno" *ngIf="!this.esProfesor">       
         <ion-card-content>
-            <!--<select name="clases" [(ngModel)]='Clases'> Cuando Implementemos la informacion tendremos que poner correctamente el select-->
-              <!--  <option *ngFor='let clase of clases; let i=index' value="{{i}}">{{prod[0]}} ({{prod[1]}} €)</option>
-              </select>-->
+            
               <!-- Cuando este la informacion habra que añadir los valores que se pongan-->
             <ion-label> Horario:</ion-label><br> <!-- Mirar como hacerlo-->
             <ion-label>Profesor:</ion-label><br>
