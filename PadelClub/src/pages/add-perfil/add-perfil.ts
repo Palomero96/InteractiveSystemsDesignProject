@@ -1,4 +1,3 @@
-import { Tab1Page } from './../tab1/tab1';
 import { Contact } from './../../models/contact.model';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -7,14 +6,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import 'rxjs/add/operator/take';
 import { Observable } from 'rxjs/Observable';
 import { TabsPage } from '../tabs/tabs';
-import { AuthTokenProvider } from '@firebase/database/dist/src/core/AuthTokenProvider';
 
-/**
- * Generated class for the AddPerfilPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({

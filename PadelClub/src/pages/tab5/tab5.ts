@@ -1,22 +1,11 @@
-import { ContactService } from './../../services/contact.service';
-import { AddContactoPage } from './../add-contacto/add-contacto';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, AngularFireObject} from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import { ConversacionPage } from '../conversacion/conversacion';
-import { ChatService } from '../../services/chat.service';
-import { Chat } from '../../models/chat.model';
-import { isEmpty } from '@firebase/util';
-import { Contact } from '../../models/contact.model';
 
-/**
- * Generated class for the Tab5Page page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
+
 
 @Component({
   selector: 'page-tab5',

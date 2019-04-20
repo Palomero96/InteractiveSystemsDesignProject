@@ -9,15 +9,8 @@ import { Mensaje } from '../../models/mensaje.model';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Chat } from '../../models/chat.model';
 import { AngularFireObject, AngularFireDatabase } from 'angularfire2/database';
-import { Tab5Page } from '../tab5/tab5';
 import { Tab2Page } from '../tab2/tab2';
 
-/**
- * Generated class for the ConversacionPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -65,24 +58,7 @@ export class ConversacionPage {
             this.userdest=this.Chat.user1;
             this.nombre1=this.Chat.nombre2;
             this.nombre2=this.Chat.nombre1;
-          }
-          //Obtenemos el nombre del usuario origen
-         /* this.contactoAuxiliar = this.afDataBase.object<Contact>(`perfil/${data.uid}`);
-          this.contactoAuxiliar.snapshotChanges().subscribe(async action => {
-          this.contactoUno = await action.payload.val();
-          console.log("Nombre "+ this.contactoUno.nombre)
-          this.userorigen=this.contactoUno.nombre;
-        });
-        //Obtenemos el nombre del usuario al que queremos enviar mensajes
-        this.contactoAuxiliar = this.afDataBase.object<Contact>(`perfil/${this.userdest}`);
-        this.contactoAuxiliar.snapshotChanges().subscribe(async action => {
-        this.contactoDos = await action.payload.val();
-        console.log("Nombre "+ this.contactoDos.nombre)
-        this.userdest=this.contactoDos.nombre + "  " + this.contactoDos.apellidos;
-      });*/
-        
-        
-        
+          }        
         });
         
   

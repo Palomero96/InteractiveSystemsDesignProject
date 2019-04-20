@@ -10,13 +10,6 @@ import { ContactService } from '../../services/contact.service';
 import { AddContactoPage } from '../add-contacto/add-contacto';
 import { Contact } from '../../models/contact.model';
 
-/**
- * Generated class for the Tab2Page page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-tab2',
@@ -40,9 +33,6 @@ export class Tab2Page {
   }
   
 
-  /* Cuando hagamos la funcion del click para el boton habra que
-  crear una variable en el servicio para el tener la informacion del chat
-  y que la tenga la pagina de conversacion */
   ionViewDidLoad() {
     this.afAuth.authState.take(1).subscribe(data=>{
       this.amigosPerfil = this.ContactService.getAmigos(data.uid);
@@ -57,13 +47,11 @@ export class Tab2Page {
       this.contactoAuxiliar = this.afDataBase.object<Contact>(`perfil/${data.uid}`);
           this.contactoAuxiliar.snapshotChanges().subscribe(async action => {
           this.contactoUno = await action.payload.val();
-          console.log("Nombre "+ this.contactoUno.nombre)
           this.userorigen=this.contactoUno.nombre+ "  " + this.contactoUno.apellidos;
           //Obtenemos el nombre del usuario al que queremos enviar mensajes
           this.contactoAuxiliar = this.afDataBase.object<Contact>(`perfil/${this.userid}`);
           this.contactoAuxiliar.snapshotChanges().subscribe(async action => {
           this.contactoDos = await action.payload.val();
-          console.log("Nombre "+ this.contactoDos.nombre)
           this.userdest=this.contactoDos.nombre + "  " + this.contactoDos.apellidos;
           this.chat ={
             chatid: this.chatid,
