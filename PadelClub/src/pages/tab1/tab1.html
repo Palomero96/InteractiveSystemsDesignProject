@@ -6,8 +6,34 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-calendar #calendar lang="es"></ion-calendar>
- 
-    
+<ion-calendar #calendar lang="es" [events]="eventos" (onDaySelect)="onDaySelect($event)"></ion-calendar>
+<ion-card >
+    <ion-card-header>
+      </ion-card-header>
+        <ion-card-content>
+                <ion-list>
+                  <ion-row>
+                    <ion-col text-center>
+                     Tipo
+                    </ion-col>
+                    <ion-col text-center>
+                      Hora
+                    </ion-col>
+                  </ion-row>
+                    <ion-card   *ngFor="let evento of eventosDia | async" >
+                      <ion-card-content >
+                        <ion-row>
+                          <ion-col text-center>
+                            <strong>{{evento.tipo}}</strong>
+                          </ion-col>
+                          <ion-col  text-center>
+                            <strong>{{evento.hora}}</strong>
+                          </ion-col>
+                        </ion-row>
+                      </ion-card-content>
+                    </ion-card>
+                </ion-list>
+        </ion-card-content>
+  </ion-card>
 </ion-content>
 
