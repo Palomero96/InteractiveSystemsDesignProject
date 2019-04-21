@@ -25,6 +25,7 @@ import { MensajeService } from '../services/mensaje.service';
 import { ReservaService } from '../services/reserva.service';
 import { LoginPage } from '../pages/login/login';
 import { ConversacionPage } from '../pages/conversacion/conversacion';
+import { CrearReservaPage } from '../pages/crear-reserva/crear-reserva';
 
 // import { NgCalendarModule } from 'ionic2-calendar';
 
@@ -36,6 +37,7 @@ import { ConversacionPage } from '../pages/conversacion/conversacion';
     LoginPage,
     AddPerfilPage,
     ConversacionPage,
+    
     Tab1Page,
     Tab2Page,
     Tab3Page,
