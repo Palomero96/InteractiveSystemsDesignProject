@@ -70,8 +70,18 @@ export class Tab1Page {
           tipo:"Reserva",
         }
         /* Obtener la fecha de hoy */
+        var x = new Date();
+        this.dia=x.getDate();
+        this.mes=x.getMonth();
+        if(this.dia==parseInt(element[i].dia) && this.mes==(parseInt(element[i].mes)-1)){
+          this.EventoDia={
+            tipo:"Reserva",
+            hora:element[i].hora,
+          }
+        this.eventosdia.push(this.EventosR);
+        }
+       
         
-        console.log(this.EventosR)
         this.eventos.push(this.EventosR);
       }
       
@@ -88,6 +98,7 @@ export class Tab1Page {
     console.log($event);
     this.dia=$event.date;
     this.mes=$event.month;
+    this.eventosdia = [];
     /* Obtenemos las reservas*/
     for(let i=0;i<this.eventos.length;i++){
       if(this.dia==this.eventos[i].date && this.mes==this.eventos[i].month){
@@ -95,7 +106,6 @@ export class Tab1Page {
           tipo:this.eventos[i].tipo,
           hora:this.eventos[i].hour,
         }
-        console.log(this.EventoDia);
         this.eventosdia.push(this.EventoDia);
       }
     }
