@@ -1,11 +1,12 @@
 import { ContactService } from './../../services/contact.service';
 import { ClaseService } from './../../services/clase.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavParams, ViewController, NavController } from 'ionic-angular';
 import { Clase } from '../../models/clase.model';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { Tab3Page } from '../tab3/tab3';
 
 /**
  * Generated class for the CrearClasePage page.
@@ -33,7 +34,8 @@ export class CrearClasePage {
   constructor(private afAuth: AngularFireAuth, private afDataBase: AngularFireDatabase,
     private claseService: ClaseService,
     private conService: ContactService,
-    private navParams: NavParams, private view: ViewController) {
+    private navParams: NavParams, private view: ViewController,
+    private navCtrl: NavController) {
      
   }
 
@@ -57,9 +59,13 @@ export class CrearClasePage {
     }
 
     this.afAuth.authState.take(1).subscribe(auth => {
-      this.afDataBase.object(`clase/${this.userId}/${this.datosClase.claseid}`).set(this.datosClase);
+      this.afDataBase.object(`clase/${this.datosClase.claseid}`).set(this.datosClase);
     })
     this.view.dismiss();
+  }
+
+  volver(){
+    this.navCtrl.setRoot(Tab3Page);
   }
 
 }

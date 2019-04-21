@@ -29,7 +29,50 @@ en el caso del alumno aparecera todal la informacion necesaria para la pagina-->
               </ion-col>
             </ion-row>
               <ion-card  *ngFor="let clase of clases | async let i = index" >
-                <ion-card-header (click)="ampliarClase(i)" >
+                <ion-card-header (click)="ampliarClase(i,clase)" >
+                  <ion-row>
+                    <ion-col text-center>
+                      <strong>{{clase.dia}}</strong>
+                    </ion-col>
+                    <ion-col  text-center>
+                      <strong>{{clase.hora}}</strong>
+                    </ion-col>
+                    <ion-col  text-center>
+                      <strong>{{clase.nivel}} </strong>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-header>
+                <ion-card-content *ngIf="mostrado[i]" >
+                  <ion-list>
+                    Alumnos Provisionales
+                      <ion-item *ngFor="let alumnoProvisional of alumnosProvisional let j=index">
+                          {{alumnoProvisional.nombre}} {{alumnoProvisional.apellidos}}
+                        </ion-item>
+                  </ion-list>
+                </ion-card-content>
+              </ion-card>
+                 <!-- AUna opcion para darle formato a esto podria ser hacer un select y en funcion de la clase que seleccione se muestre.-->
+          </ion-list>
+  </ion-card-content>
+</ion-card> 
+<!-- Apartado del alumno-->
+  <ion-card id="Alumno" *ngIf="!this.esProfesor">
+    <ion-card-header>Mis Clases</ion-card-header>   
+      <ion-card-content>
+          <ion-list>
+            <ion-row>
+              <ion-col text-center>
+                Día
+              </ion-col>
+              <ion-col text-center>
+                Hora
+              </ion-col>
+              <ion-col text-center>
+                Nivel
+              </ion-col>
+            </ion-row>
+              <ion-card  *ngFor="let clase of clases | async let i = index" >
+                <ion-card-header (click)="ampliarClase(i,clase)" >
                   <ion-row>
                     <ion-col text-center>
                       <strong>{{clase.dia}}</strong>
@@ -51,19 +94,49 @@ en el caso del alumno aparecera todal la informacion necesaria para la pagina-->
               </ion-card>
                  <!-- AUna opcion para darle formato a esto podria ser hacer un select y en funcion de la clase que seleccione se muestre.-->
           </ion-list>
-  </ion-card-content>
-</ion-card> 
-<!-- Apartado del alumno-->
-  <ion-card id="Alumno" *ngIf="!this.esProfesor">       
+    </ion-card-content>
+  </ion-card>
+  <ion-card id="Alumno" *ngIf="!this.esProfesor">
+      <ion-card-header>Todas las clases</ion-card-header>   
         <ion-card-content>
-            
-              <!-- Cuando este la informacion habra que añadir los valores que se pongan-->
-            <ion-label> Horario:</ion-label><br> <!-- Mirar como hacerlo-->
-            <ion-label>Profesor:</ion-label><br>
-            <ion-label>Nivel:</ion-label><br>
-            <ion-label>Plazas:</ion-label><br>
-            <ion-label>Alumnos:</ion-label><br>
-            
-        </ion-card-content>
-</ion-card>
+            <ion-list>
+              <ion-row>
+                <ion-col text-center>
+                  Día
+                </ion-col>
+                <ion-col text-center>
+                  Hora
+                </ion-col>
+                <ion-col text-center>
+                  Nivel
+                </ion-col>
+              </ion-row>
+                <ion-card *ngFor="let clase of clasesTodas | async let i = index" >
+                  <ion-card-header (click)="ampliarClase(i,clase)" >
+                    <ion-row>
+                      <ion-col text-center>
+                        <strong>{{clase.dia}}</strong>
+                      </ion-col>
+                      <ion-col  text-center>
+                        <strong>{{clase.hora}}</strong>
+                      </ion-col>
+                      <ion-col  text-center>
+                        <strong>{{clase.nivel}} </strong>
+                      </ion-col>
+                    </ion-row>
+                  </ion-card-header>
+                  <ion-card-content *ngIf="mostrado[i]" >
+                    <ion-list>
+                      Alumnos
+                      Estaría guay mostrar la lista de alumnos
+                    </ion-list>
+                    <ion-row text-center>
+                        <button ion-button (click)="unirAUnaClase(clase)">Unirme</button>
+                    </ion-row>
+                  </ion-card-content>
+                </ion-card>
+                   <!-- AUna opcion para darle formato a esto podria ser hacer un select y en funcion de la clase que seleccione se muestre.-->
+            </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

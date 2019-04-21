@@ -1,15 +1,14 @@
 
 <ion-header>
-  <ion-navbar>
+<ion-navbar>
     <ion-title>Crear Clase</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="crearClaseSubmit()">Cerrar</button>
+      <button ion-button (click)="volver()">Cerrar</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-label>Profesor: {{(datosPerfil | async)?.nombre}}</ion-label>
   <ion-item>
     <ion-label>Día de la semana: 
       <ion-select  [(ngModel)]="dia" name="dia" value="defDia" placeholder="Seleccione día">
@@ -35,10 +34,10 @@
   <ion-item>
     <ion-label>Nivel: 
       <ion-select type="text"  [(ngModel)]="nivel" placeholder="Nivel de clase" name="nivel" value="defNivel">
-          <ion-option value="principiante"> Principiante</ion-option>
-          <ion-option value="intermedio"> Intermedio</ion-option>
-          <ion-option value="avanzado"> Avanzado</ion-option>
-          <ion-option value="pro"> Pro</ion-option>
+          <ion-option value="Principiante"> Principiante</ion-option>
+          <ion-option value="Intermedio"> Intermedio</ion-option>
+          <ion-option value="Avanzado"> Avanzado</ion-option>
+          <ion-option value="Pro"> Pro</ion-option>
       </ion-select>
     </ion-label>
   </ion-item>
