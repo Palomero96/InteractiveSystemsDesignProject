@@ -82,7 +82,7 @@ export class Tab3Page {
     this.afAuth.authState.take(1).subscribe( async data=>
     {
       //De esta manera el id sera el mismo da igual quien cree la conversacion
-      this.afDataBase.object(`clase/${clase.claseid}/alumnos_provisional`,ref => ref.orderByChild()).snapshotChanges().subscribe( async action => {
+      this.afDataBase.object(`clase/${clase.claseid}/alumnos_provisional`).snapshotChanges().subscribe( async action => {
         for(var k in action.payload.val()) {
           console.log(action.payload.val()[k])
           this.afDataBase.object(`perfil/${action.payload.val()[k]}`).snapshotChanges().subscribe( async action2 => {
