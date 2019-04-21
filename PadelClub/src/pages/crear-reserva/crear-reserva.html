@@ -1,0 +1,37 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Reservar Hora</ion-title>
+    <ion-buttons end>
+        <button ion-button (click)="volver()">Cerrar</button>
+      </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+    <ion-label>Mes:<ion-input type="number" min="1" max="12" [(ngModel)]="mes" name="mes" placeholder="Seleccione un Mes"> </ion-input>
+    </ion-label>
+      <ion-label>Dia:<ion-input type="number" min="1" max="31" [(ngModel)]="dia" name="dia" placeholder="Seleccione un Dia"> </ion-input>
+      </ion-label>
+      
+      <ion-item>
+      <ion-label>Hora: 
+        <ion-select  [(ngModel)]="hora" name="hora" placeholder="Seleccione hora" value="defHora">
+            <ion-option value="10:00"> 10:00</ion-option>
+            <ion-option value="11:00"> 11:00</ion-option>
+            <ion-option value="12:00"> 12:00</ion-option>
+            <ion-option value="13:00"> 13:00</ion-option>
+            <ion-option value="14:00"> 14:00</ion-option>
+            <ion-option value="15:00"> 15:00</ion-option>
+            <ion-option value="16:00"> 16:00</ion-option>
+            <ion-option value="17:00"> 17:00</ion-option>
+            <ion-option value="18:00"> 18:00</ion-option>
+            <ion-option value="19:00"> 19:00</ion-option>
+            <ion-option value="20:00"> 20:00</ion-option>
+            <ion-option value="21:00"> 21:00</ion-option>
+        </ion-select>
+      </ion-label>
+  </ion-item>
+  <button ion-button (click)="reservar()">Reservar</button>
+</ion-content>

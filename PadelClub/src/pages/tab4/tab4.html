@@ -4,6 +4,7 @@
       Reservas
     </ion-title>
   </ion-toolbar>
+  
 </ion-header>
 
 <!-- Poner para elegir el mes, el dia la hora y que te salgan las dos pistas 
@@ -11,24 +12,41 @@ indicando si estan ocupadas o no-->
 
 
 <ion-content>
-    <ion-input type="number" min="1" max="12" [(ngModel)]="mes" name="mes" placeholder="Seleccione un Mes"> </ion-input>
-    <ion-input type="number" min="1" max="31" [(ngModel)]="dia" name="dia" placeholder="Seleccione un Dia"> </ion-input>
-
-<!-- 
-  MIRAR SI NOS es util
-  <ion-item>
-  <ion-label>Date</ion-label>
-  <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="myDate"></ion-datetime>
-</ion-item> 
-https://ionicframework.com/docs/v3/api/components/datetime/DateTime/
-
--->
-      <ion-select  name="dia" value="defDia" placeholder="Seleccione día">
-          <ion-option value="lunes">Lunes</ion-option>
-          <ion-option value="martes">Martes</ion-option>
-          <ion-option value="miercoles">Miércoles</ion-option>
-          <ion-option value="jueves">Jueves</ion-option>
-          <ion-option value="viernes">Viernes</ion-option>
-      </ion-select>
-
+  <ion-card>
+    <ion-card-header>
+         <!-- Boton para implemental que se une a la clase-->
+      </ion-card-header>
+        <ion-card-content>
+                <ion-list>
+                  <ion-row>
+                    <ion-col text-center>
+                      Hora
+                    </ion-col>
+                    <ion-col text-center>
+                      Dia
+                    </ion-col>
+                    <ion-col text-center>
+                      Mes
+                    </ion-col>
+                  </ion-row>
+                    <ion-card  *ngFor="let reserva of reservas | async" >
+                
+                      <ion-card-content >
+                        <ion-row>
+                          <ion-col text-center>
+                            <strong>{{reserva.hora}}</strong>
+                          </ion-col>
+                          <ion-col  text-center>
+                            <strong>{{reserva.dia}}</strong>
+                          </ion-col>
+                          <ion-col  text-center>
+                            <strong>{{reserva.mes}} </strong>
+                          </ion-col>
+                        </ion-row>
+                      </ion-card-content>
+                    </ion-card>
+                </ion-list>
+        </ion-card-content>
+        <button ion-button (click)="crearReserva()">Nueva Reserva</button>
+      </ion-card> 
 </ion-content>
