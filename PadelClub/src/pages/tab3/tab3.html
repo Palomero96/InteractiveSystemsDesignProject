@@ -13,21 +13,44 @@ en el caso del alumno aparecera todal la informacion necesaria para la pagina-->
 <!-- Apartado del profesor-->
 <ion-card id="Profesor" *ngIf="this.esProfesor">
 <ion-card-header>
-          Mis Clases
-        </ion-card-header>
+  <button ion-button (click)="this.crearClase()">Añadir Clase</button> <!-- Boton para implemental que se une a la clase-->
+</ion-card-header>
   <ion-card-content>
-    
           <ion-list>
-          HOLAAAA
-              <ion-item *ngFor="let clase of clases | async">
+            <ion-row>
+              <ion-col text-center>
+                Día
+              </ion-col>
+              <ion-col text-center>
+                Hora
+              </ion-col>
+              <ion-col text-center>
+                Nivel
+              </ion-col>
+            </ion-row>
+              <ion-card  *ngFor="let clase of clases | async let i = index" >
+                <ion-card-header (click)="ampliarClase(i)" >
+                  <ion-row>
+                    <ion-col text-center>
+                      <strong>{{clase.dia}}</strong>
+                    </ion-col>
+                    <ion-col  text-center>
+                      <strong>{{clase.hora}}</strong>
+                    </ion-col>
+                    <ion-col  text-center>
+                      <strong>{{clase.nivel}} </strong>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-header>
+                <ion-card-content *ngIf="mostrado[i]" >
+                  <ion-list>
+                    Alumnos
+                    Estaría guay mostrar la lista de alumnos
+                  </ion-list>
+                </ion-card-content>
+              </ion-card>
                  <!-- AUna opcion para darle formato a esto podria ser hacer un select y en funcion de la clase que seleccione se muestre.-->
-                    <ion-label> Dia: {{clase.dia}}</ion-label><br>
-                    <ion-label> Hora: {{clase.hora}}</ion-label><br>
-                    <ion-label> Nivel: {{clase.dia}}</ion-label><br>
-                  
-              </ion-item>
           </ion-list>
-      <button ion-button (click)="this.crearClase()">Crear Clase</button> <!-- Boton para implemental que se une a la clase-->
   </ion-card-content>
 </ion-card> 
 <!-- Apartado del alumno-->

@@ -14,7 +14,7 @@ import { Clase } from '../../models/clase.model';
   templateUrl: 'tab3.html',
 })
 export class Tab3Page {
-
+  mostrado:boolean[]=[];
   esProfesor: boolean;
   myUserData: {};
   datosPerfil: AngularFireObject<Contact>;;
@@ -27,7 +27,7 @@ export class Tab3Page {
   }
 
   ionViewWillEnter() {
-
+    this.mostrado= [];
     this.afAuth.authState.take(1).subscribe( async data=>{
       //De esta manera el id sera el mismo da igual quien cree la conversacion
         this.datosPerfil = this.afDataBase.object(`perfil/${data.uid}`);
@@ -75,6 +75,9 @@ export class Tab3Page {
 
     }
 
+  }
+  ampliarClase(i) {
+    this.mostrado[i] = !this.mostrado[i];
   }
 
 }
