@@ -8,6 +8,9 @@ import { Reserva } from '../../models/reserva.model';
 import { Observable } from 'rxjs/Observable';
 import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 import { Clase } from '../../models/clase.model';
+import { Calendar } from 'ionic3-calendar-en/src/calendar/calendar';
+import { calendarFormat } from 'moment';
+import { dateDataSortValue } from 'ionic-angular/umd/util/datetime-util';
 
 
 
@@ -41,6 +44,8 @@ export class Tab1Page {
   mostrar:boolean=false;
   Perfil:Contact;
   diaSemana:number;
+  entrado:boolean=false;
+  diaCambio: Event;
 
   constructor(private afAuth: AngularFireAuth, private afDataBase: AngularFireDatabase,
     private toast: ToastController,
@@ -119,12 +124,16 @@ export class Tab1Page {
             }
             var x = new Date();
             var diaux = x.getDay();
-            var diff=diaux-this.diaSemana;
+            var diff=this.diaSemana-diaux;
+            console.log(x.getDate())
+            console.log(diff)
             if(diff<0){
-              diff=this.diaSemana+7;
+              diff=this.diaSemana+6;
+              x.setDate(x.getDate()+diff);
             }
             x.setDate(x.getDate()+diff);
-            for(let j=0; j<5;j++){
+            console.log(x.getDate())
+            for(let j=0; j<10;j++){
             
             this.EventoDia={
               year:2019,
@@ -140,8 +149,9 @@ export class Tab1Page {
             if(this.dia==x.getDate() && this.mes==(x.getMonth())){
             this.eventosdia.push(this.EventoDia);
             }
-          } 
+            x.setDate(x.getDate()+7);
             this.eventos.push(this.EventoDia);
+          } 
           }
         });
 
@@ -202,19 +212,25 @@ export class Tab1Page {
             x.setDate(x.getDate()+7);
             this.eventos.push(this.EventoDia);
           } 
-            
-
           }
         });
-
       }
     });  
   
     });
+    var midia = new Date();
+    this.onDaySelect({date: midia.getDate(),
+      hasEvent: true,
+      isSelect: false,
+      isThisMonth: true,
+      isToday: true,
+      month: midia.getMonth()+1,
+      year: 2019});
     }
 
+  
   onDaySelect($event){
-    console.log($event);
+    console.log("Evento " + $event);
     this.dia=$event.date;
     this.mes=$event.month;
     this.eventosdia = [];
