@@ -18,7 +18,7 @@ import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 export class Tab1Page {
  
   Reserva:Reserva;
-  EventosR={
+  Eventos={
     year:2019,
     month:1,
     date:1,
@@ -26,6 +26,7 @@ export class Tab1Page {
     tipo:"Reserva"
   }
   reservas:Observable<Reserva[]>;
+  clases:Observable<Reserva[]>;
   reservasDia:Observable<Reserva[]>;
   eventos = [];
   eventosdia = []
@@ -62,7 +63,7 @@ export class Tab1Page {
     this.reservas= await this.afDataBase.list<Reserva>(`reserva`,ref => ref.orderByChild("usuarioid").equalTo(data.uid)).valueChanges();
     this.reservas.forEach(element => {
       for(let i=0;i<element.length;i++){
-        this.EventosR={
+        this.EventoDia={
           year:2019,
           month:parseInt(element[i].mes)-1,
           date:parseInt(element[i].dia),
@@ -74,22 +75,39 @@ export class Tab1Page {
         this.dia=x.getDate();
         this.mes=x.getMonth();
         if(this.dia==parseInt(element[i].dia) && this.mes==(parseInt(element[i].mes)-1)){
-          this.EventoDia={
-            tipo:"Reserva",
-            hora:element[i].hora,
-          }
-        this.eventosdia.push(this.EventosR);
+        this.eventosdia.push(this.EventoDia);
         }
-       
+      
         
-        this.eventos.push(this.EventosR);
+        this.eventos.push(this.Eventos);
       }
-      
-      
-      
     });
+      /* Recuperamos las clases*/
 
+    /* Aqui hay que hacer la query de las clases y luego tratar cada clase para que se añadan X eventos al calendario con la misma clase pero en diferentes semanas*/  
+    this.clases= await this.afDataBase.list<Reserva>(`reserva`,ref => ref.orderByChild("usuarioid").equalTo(data.uid)).valueChanges();
+    this.clases.forEach(element => {
+      for(let i=0;i<element.length;i++){
+        this.EventoDia={
+          year:2019,
+          month:parseInt(element[i].mes)-1,
+          date:parseInt(element[i].dia),
+          hour:element[i].hora,
+          tipo:"Clase",
+        }
+        /* Obtener la fecha de hoy */
+        var x = new Date();
+        this.dia=x.getDate();
+        this.mes=x.getMonth();
+        if(this.dia==parseInt(element[i].dia) && this.mes==(parseInt(element[i].mes)-1)){
 
+        this.eventosdia.push(this.EventoDia);
+        }
+      
+        
+        this.eventos.push(this.EventoDia);
+      }
+    });
     });
   
     }
