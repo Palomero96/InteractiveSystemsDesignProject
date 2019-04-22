@@ -13,6 +13,7 @@ import { Contact } from '../../models/contact.model';
 })
 export class Tab3Page {
   mostrado:boolean[]=[];
+  claseLlena:boolean[]=[];
   esProfesor: boolean;
   myUserData: {};
   datosPerfil: AngularFireObject<Contact>;;
@@ -25,6 +26,8 @@ export class Tab3Page {
   alumnosProvisional: Observable<{}[]>;
   alumnosFinal: Observable<{}[]>;
   ampliarAnterior: number;
+  numAlumnos:number=0;
+  max:number=0;
 
   constructor(public navCtrl: NavController,private afAuth: AngularFireAuth, private afDataBase: AngularFireDatabase, private crearClaseMod: ModalController, public navParams: NavParams) {
     this.esProfesor = false;
@@ -85,9 +88,13 @@ export class Tab3Page {
     }
 
   ampliarClase(i,clase) { 
+    
     if(i!=this.ampliarAnterior)
     {
+      this.max=0;
+      this.numAlumnos=0;
       this.cerrarClaseAnterior();
+      this.comprobarMaxAlumnos(i,clase);
       this.afAuth.authState.take(1).subscribe( async data=>
       {
         //recogemos los alumnos provisionales
@@ -109,15 +116,35 @@ export class Tab3Page {
     this.mostrado[this.ampliarAnterior] = !this.mostrado[this.ampliarAnterior];
   }
 
-  addFinalAlumno(alumno,clase)
+  addFinalAlumno(i,alumno,clase)
   {
-    this.afAuth.authState.take(1).subscribe(auth => {
-      this.afDataBase.object(`clase/${clase.claseid}/alumnos_final/${alumno.id}/`).set({id: alumno.id, nombre:alumno.nombre});
-      this.afDataBase.object(`perfil/${alumno.id}/clase/${clase.claseid}/`).set(clase.claseid);
-    })
-    this.removePorvisionalAlumno(alumno,clase);
+    console.log("NumMAX  "+this.max);
+    console.log("AlFinal "+this.numAlumnos);
+      if( this.numAlumnos<this.max)
+      {
+        this.afDataBase.object(`clase/${clase.claseid}/alumnos_final/${alumno.id}/`).set({id: alumno.id, nombre:alumno.nombre});
+        this.afDataBase.object(`perfil/${alumno.id}/clase/${clase.claseid}/`).set(clase.claseid);
+        this.comprobarMaxAlumnos(i,clase);
+        this.removePorvisionalAlumno(alumno,clase);
+        console.log("Añadido alumno a la clase")
+      }
+      else{
+        console.log("Número máximo de alumnos")
+      }
   }
 
+  comprobarMaxAlumnos(i,clase)
+  {
+    this.afAuth.authState.take(1).subscribe(async auth => {
+      await this.afDataBase.object(`clase/${clase.claseid}`).snapshotChanges().subscribe( async action => {
+        this.max = await action.payload.val().plazasmax;
+        await this.afDataBase.list<{}>(`clase/${clase.claseid}/alumnos_final`).valueChanges().forEach(async element => {
+          this.numAlumnos= await element.length;
+        });
+      });
+    })
+  
+  }
   removePorvisionalAlumno(alumno,clase)
   {
     this.afAuth.authState.take(1).subscribe(auth => {
@@ -125,7 +152,7 @@ export class Tab3Page {
     })
   }
 
-  removeFinalAlumno(alumno,clase)
+  removeFinalAlumno(i,alumno,clase)
   {
     this.afAuth.authState.take(1).subscribe(auth => {
       this.afDataBase.object(`clase/${clase.claseid}/alumnos_final/${alumno.id}/`).remove();
@@ -136,6 +163,7 @@ export class Tab3Page {
         });
       this.afDataBase.object(`perfil/${alumno.id}/clase/${clase.claseid}/`).remove();
     })
+    this.comprobarMaxAlumnos(i,clase);
   }
 
 }

@@ -53,7 +53,7 @@ en el caso del alumno aparecera todal la informacion necesaria para la pagina-->
                                       {{alumnoProvisional.nombre}}
                                     </ion-col>
                                     <ion-col text-left>
-                                      <button ion-button (click)="addFinalAlumno(alumnoProvisional,clase)">+</button>  
+                                      <button ion-button (click)="addFinalAlumno(i,alumnoProvisional,clase)">+</button>  
                                     </ion-col>
                                 </ion-row>
                                 </ion-item>
@@ -68,7 +68,7 @@ en el caso del alumno aparecera todal la informacion necesaria para la pagina-->
                                     {{alumnoFinal.nombre}}
                                   </ion-col>
                                   <ion-col>
-                                    <button ion-button (click)="removeFinalAlumno(alumnoFinal,clase)">-</button>  
+                                    <button ion-button (click)="removeFinalAlumno(i,alumnoFinal,clase)">-</button>  
                                   </ion-col>
                               </ion-row>
                               </ion-item>
