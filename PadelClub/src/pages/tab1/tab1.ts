@@ -7,6 +7,7 @@ import { Contact } from '../../models/contact.model';
 import { Reserva } from '../../models/reserva.model';
 import { Observable } from 'rxjs/Observable';
 import { dashCaseToCamelCase } from '@angular/compiler/src/util';
+import { Clase } from '../../models/clase.model';
 
 
 
@@ -26,7 +27,7 @@ export class Tab1Page {
     tipo:"Reserva"
   }
   reservas:Observable<Reserva[]>;
-  clases:Observable<Reserva[]>;
+  clases:Observable<Clase[]>;
   reservasDia:Observable<Reserva[]>;
   eventos = [];
   eventosdia = []
@@ -38,6 +39,8 @@ export class Tab1Page {
   hora:string;
   reservaid:string;
   mostrar:boolean=false;
+  Perfil:Contact;
+  diaSemana:number;
 
   constructor(private afAuth: AngularFireAuth, private afDataBase: AngularFireDatabase,
     private toast: ToastController,
@@ -76,40 +79,138 @@ export class Tab1Page {
         this.mes=x.getMonth();
         if(this.dia==parseInt(element[i].dia) && this.mes==(parseInt(element[i].mes)-1)){
         this.eventosdia.push(this.EventoDia);
-        }
-      
         
-        this.eventos.push(this.Eventos);
+        }
+      console.log(this.EventoDia)
+        
+        this.eventos.push(this.EventoDia);
       }
     });
       /* Recuperamos las clases*/
 
     /* Aqui hay que hacer la query de las clases y luego tratar cada clase para que se añadan X eventos al calendario con la misma clase pero en diferentes semanas*/  
-    this.clases= await this.afDataBase.list<Reserva>(`reserva`,ref => ref.orderByChild("usuarioid").equalTo(data.uid)).valueChanges();
-    this.clases.forEach(element => {
-      for(let i=0;i<element.length;i++){
-        this.EventoDia={
-          year:2019,
-          month:parseInt(element[i].mes)-1,
-          date:parseInt(element[i].dia),
-          hour:element[i].hora,
-          tipo:"Clase",
-        }
-        /* Obtener la fecha de hoy */
-        var x = new Date();
-        this.dia=x.getDate();
-        this.mes=x.getMonth();
-        if(this.dia==parseInt(element[i].dia) && this.mes==(parseInt(element[i].mes)-1)){
+    this.datosPerfil.snapshotChanges().subscribe( async action => {
+      this.Perfil = await action.payload.val();
+      if(this.Perfil.rol=="Profesor"){
+        this.clases=this.afDataBase.list<Clase>(`clase`,ref => ref.orderByChild(`profesor`).equalTo(data.uid)).valueChanges();
+        this.clases.forEach(element => {
+          for(let i=0;i<element.length;i++){
+            switch (element[i].dia){
+              case "lunes": {
+                this.diaSemana=1;
+                break;
+              }
+              case "martes": {
+                this.diaSemana=2;
+                break;
+              }
+              case "miercoles": {
+                this.diaSemana=3;
+                break;
+              }
+              case "jueves": {
+                this.diaSemana=4;
+                break;
+              }
+              case "viernes": {
+                this.diaSemana=5;
+                break;
+              }
+            }
+            var x = new Date();
+            var diaux = x.getDay();
+            var diff=diaux-this.diaSemana;
+            if(diff<0){
+              diff=this.diaSemana+7;
+            }
+            x.setDate(x.getDate()+diff);
+            for(let j=0; j<5;j++){
+            
+            this.EventoDia={
+              year:2019,
+              month:x.getMonth(),
+              date:x.getDate(),
+              hour:element[i].hora,
+              tipo:"Clase",
+            }
+            /* Obtener la fecha de hoy */
+            var hoy= new Date();
+            this.dia=hoy.getDate();
+            this.mes=hoy.getMonth();
+            if(this.dia==x.getDate() && this.mes==(x.getMonth())){
+            this.eventosdia.push(this.EventoDia);
+            }
+          } 
+            this.eventos.push(this.EventoDia);
+          }
+        });
 
-        this.eventosdia.push(this.EventoDia);
-        }
-      
-        
-        this.eventos.push(this.EventoDia);
+      } else{
+    
+        this.clases=this.afDataBase.list<Clase>(`clase`, ref => ref.orderByChild(`/alumnos_final/${this.Perfil.id}/id`).equalTo(this.Perfil.id)).valueChanges();
+        this.clases.forEach(element => {
+          for(let i=0;i<element.length;i++){
+            switch (element[i].dia){
+              case "lunes": {
+                this.diaSemana=1;
+                break;
+              }
+              case "martes": {
+                this.diaSemana=2;
+                break;
+              }
+              case "miercoles": {
+                this.diaSemana=3;
+                break;
+              }
+              case "jueves": {
+                this.diaSemana=4;
+                break;
+              }
+              case "viernes": {
+                this.diaSemana=5;
+                break;
+              }
+            }
+            var x = new Date();
+            var diaux = x.getDay();
+            var diff=this.diaSemana-diaux;
+            console.log(x.getDate())
+            console.log(diff)
+            if(diff<0){
+              diff=this.diaSemana+6;
+              x.setDate(x.getDate()+diff);
+            }
+            x.setDate(x.getDate()+diff);
+            console.log(x.getDate())
+            for(let j=0; j<10;j++){
+            
+            this.EventoDia={
+              year:2019,
+              month:x.getMonth(),
+              date:x.getDate(),
+              hour:element[i].hora,
+              tipo:"Clase",
+            }
+            /* Obtener la fecha de hoy */
+            var hoy= new Date();
+            this.dia=hoy.getDate();
+            this.mes=hoy.getMonth();
+            if(this.dia==x.getDate() && this.mes==(x.getMonth())){
+            this.eventosdia.push(this.EventoDia);
+            }
+            x.setDate(x.getDate()+7);
+            this.eventos.push(this.EventoDia);
+          } 
+            
+
+          }
+        });
+
       }
-    });
-    });
+    });  
   
+    });
     }
 
   onDaySelect($event){
@@ -124,6 +225,7 @@ export class Tab1Page {
           tipo:this.eventos[i].tipo,
           hora:this.eventos[i].hour,
         }
+        console.log(this.EventoDia);
         this.eventosdia.push(this.EventoDia);
       }
     }
