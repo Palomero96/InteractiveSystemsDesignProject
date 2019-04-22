@@ -46,7 +46,8 @@ export class Tab3Page {
         } else{
           //Aqui tendremos que obtener las clases en las que se puede apuntar el alumno
           this.clasesTodas=this.afDataBase.list<Clase>(`clase`, ref => ref.orderByChild(`nivel`).equalTo(this.Perfil.nivel)).valueChanges();
-          //this.clases=this.afDataBase.list<Clase>(`clase`, ref => ref.orderByChild(`nivel`).equalTo(this.Perfil.nivel)).valueChanges();
+          this.clases=this.afDataBase.list<Clase>(`clase`, ref => ref.orderByChild(`/alumnos_final/${this.Perfil.id}/id`).equalTo(this.Perfil.id)).valueChanges();
+          console.log("Mis clases " +this.clases);
         }
         
         });
