@@ -22,7 +22,9 @@ export class Tab3Page {
   clasesTodas:Observable<Clase[]>;
   claseParaMostrar : Clase;
   idAlumnos: string[];
-  alumnosProvisional: Contact[]=[];
+  alumnosProvisional: Observable<{}[]>;
+  alumnosFinal: Observable<{}[]>;
+  ampliarAnterior: number;
 
   constructor(public navCtrl: NavController,private afAuth: AngularFireAuth, private afDataBase: AngularFireDatabase, private crearClaseMod: ModalController, public navParams: NavParams) {
     this.esProfesor = false;
@@ -44,7 +46,7 @@ export class Tab3Page {
         } else{
           //Aqui tendremos que obtener las clases en las que se puede apuntar el alumno
           this.clasesTodas=this.afDataBase.list<Clase>(`clase`, ref => ref.orderByChild(`nivel`).equalTo(this.Perfil.nivel)).valueChanges();
-        
+          //this.clases=this.afDataBase.list<Clase>(`clase`, ref => ref.orderByChild(`nivel`).equalTo(this.Perfil.nivel)).valueChanges();
         }
         
         });
@@ -73,27 +75,66 @@ export class Tab3Page {
   unirAUnaClase(objClase)
     {
       this.afAuth.authState.take(1).subscribe(auth => {
-        this.afDataBase.object(`clase/${objClase.claseid}/alumnos_provisional/${this.Perfil.id}/`).set(this.Perfil.id);
+        this.afDataBase.object(`clase/${objClase.claseid}/alumnos_provisional/${this.Perfil.id}/`).set(
+          {
+            id:this.Perfil.id,
+            nombre:this.Perfil.nombre+ " " + this.Perfil.apellidos
+          });
       })
     }
 
   ampliarClase(i,clase) { 
-    this.alumnosProvisional=[];
-    this.afAuth.authState.take(1).subscribe( async data=>
+    if(i!=this.ampliarAnterior)
     {
-      //De esta manera el id sera el mismo da igual quien cree la conversacion
-      this.afDataBase.object(`clase/${clase.claseid}/alumnos_provisional`).snapshotChanges().subscribe( async action => {
-        for(var k in action.payload.val()) {
-          console.log(action.payload.val()[k])
-          this.afDataBase.object(`perfil/${action.payload.val()[k]}`).snapshotChanges().subscribe( async action2 => {
-              console.log(action2.payload.val());
-              this.alumnosProvisional.push(action2.payload.val());
-          })
-       }
-       console.log(this.alumnosProvisional)
-      })
-    });
-    this.mostrado[i] = !this.mostrado[i];
+      this.cerrarClaseAnterior();
+      this.afAuth.authState.take(1).subscribe( async data=>
+      {
+        //recogemos los alumnos provisionales
+        console.log("TestObservable    "+this.afDataBase.list<{}>(`clase/${clase.claseid}/alumnos_provisional/`,ref => ref.orderByChild(`nombre`)).valueChanges())
+        this.alumnosProvisional = this.afDataBase.list<{}>(`clase/${clase.claseid}/alumnos_provisional/`,ref => ref.orderByChild(`nombre`)).valueChanges();
+        this.alumnosFinal = this.afDataBase.list<{}>(`clase/${clase.claseid}/alumnos_final/`,ref => ref.orderByChild(`nombre`)).valueChanges();
+      });
+      this.ampliarAnterior=i;
+      this.mostrado[i] = !this.mostrado[i];
+    }
+    else
+    {
+      this.mostrado[i] = !this.mostrado[i];
+      this.ampliarAnterior=null;
+    }
+  }
+  cerrarClaseAnterior()
+  {
+    this.mostrado[this.ampliarAnterior] = !this.mostrado[this.ampliarAnterior];
+  }
+
+  addFinalAlumno(alumno,clase)
+  {
+    this.afAuth.authState.take(1).subscribe(auth => {
+      this.afDataBase.object(`clase/${clase.claseid}/alumnos_final/${alumno.id}/`).set({id: alumno.id, nombre:alumno.nombre});
+      this.afDataBase.object(`perfil/${alumno.id}/clase/${clase.claseid}/`).set(clase.claseid);
+    })
+    this.removePorvisionalAlumno(alumno,clase);
+  }
+
+  removePorvisionalAlumno(alumno,clase)
+  {
+    this.afAuth.authState.take(1).subscribe(auth => {
+      this.afDataBase.object(`clase/${clase.claseid}/alumnos_provisional/${alumno.id}/`).remove();
+    })
+  }
+
+  removeFinalAlumno(alumno,clase)
+  {
+    this.afAuth.authState.take(1).subscribe(auth => {
+      this.afDataBase.object(`clase/${clase.claseid}/alumnos_final/${alumno.id}/`).remove();
+      this.afDataBase.object(`clase/${clase.claseid}/alumnos_provisional/${alumno.id}/`).set(
+        {
+          id:alumno.id,
+          nombre:alumno.nombre
+        });
+      this.afDataBase.object(`perfil/${alumno.id}/clase/${clase.claseid}/`).remove();
+    })
   }
 
 }

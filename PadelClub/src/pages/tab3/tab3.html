@@ -43,12 +43,38 @@ en el caso del alumno aparecera todal la informacion necesaria para la pagina-->
                   </ion-row>
                 </ion-card-header>
                 <ion-card-content *ngIf="mostrado[i]" >
-                  <ion-list>
-                    Alumnos Provisionales
-                      <ion-item *ngFor="let alumnoProvisional of alumnosProvisional let j=index">
-                          {{alumnoProvisional.nombre}} {{alumnoProvisional.apellidos}}
-                        </ion-item>
-                  </ion-list>
+                  <ion-row>
+                    <ion-col>
+                        <ion-list>
+                            Alumnos Provisionales
+                              <ion-item *ngFor="let alumnoProvisional of alumnosProvisional | async let j=index">
+                                <ion-row>
+                                    <ion-col>
+                                      {{alumnoProvisional.nombre}}
+                                    </ion-col>
+                                    <ion-col text-left>
+                                      <button ion-button (click)="addFinalAlumno(alumnoProvisional,clase)">+</button>  
+                                    </ion-col>
+                                </ion-row>
+                                </ion-item>
+                          </ion-list>
+                    </ion-col>
+                    <ion-col>
+                      <ion-list>
+                          Alumnos Finales
+                            <ion-item *ngFor="let alumnoFinal of alumnosFinal | async let j=index">
+                              <ion-row>
+                                  <ion-col>
+                                    {{alumnoFinal.nombre}}
+                                  </ion-col>
+                                  <ion-col>
+                                    <button ion-button (click)="removeFinalAlumno(alumnoFinal,clase)">-</button>  
+                                  </ion-col>
+                              </ion-row>
+                              </ion-item>
+                        </ion-list>
+                    </ion-col>
+                  </ion-row>
                 </ion-card-content>
               </ion-card>
                  <!-- AUna opcion para darle formato a esto podria ser hacer un select y en funcion de la clase que seleccione se muestre.-->
@@ -86,10 +112,20 @@ en el caso del alumno aparecera todal la informacion necesaria para la pagina-->
                   </ion-row>
                 </ion-card-header>
                 <ion-card-content *ngIf="mostrado[i]" >
-                  <ion-list>
-                    Alumnos
-                    Estaría guay mostrar la lista de alumnos
-                  </ion-list>
+                  <ion-row>
+                    <ion-col>
+                        <ion-list>
+                            Alumnos
+                              <ion-item *ngFor="let alumnoFinal of alumnosFinal | async let j=index">
+                                <ion-row text-center>
+                                    <ion-col>
+                                      {{alumnoFinal.nombre}}
+                                    </ion-col>
+                                </ion-row>
+                                </ion-item>
+                          </ion-list>
+                      </ion-col>
+                    </ion-row>
                 </ion-card-content>
               </ion-card>
                  <!-- AUna opcion para darle formato a esto podria ser hacer un select y en funcion de la clase que seleccione se muestre.-->
@@ -126,12 +162,24 @@ en el caso del alumno aparecera todal la informacion necesaria para la pagina-->
                     </ion-row>
                   </ion-card-header>
                   <ion-card-content *ngIf="mostrado[i]" >
-                    <ion-list>
-                      Alumnos
-                      Estaría guay mostrar la lista de alumnos
-                    </ion-list>
+                      <ion-row text-center>
+                          <ion-col>
+                              <ion-list>
+                                  Alumnos
+                                    <ion-item *ngFor="let alumnoFinal of alumnosFinal | async let j=index">
+                                      <ion-row text-center>
+                                          <ion-col>
+                                            {{alumnoFinal.nombre}}
+                                          </ion-col>
+                                      </ion-row>
+                                      </ion-item>
+                                </ion-list>
+                            </ion-col>
+                          </ion-row>
                     <ion-row text-center>
+                      <ion-col>
                         <button ion-button (click)="unirAUnaClase(clase)">Unirme</button>
+                      </ion-col>
                     </ion-row>
                   </ion-card-content>
                 </ion-card>
