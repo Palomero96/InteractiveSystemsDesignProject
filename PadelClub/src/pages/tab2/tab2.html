@@ -17,9 +17,9 @@
         <ion-item>
           <ion-row>
             <ion-col>{{amigo.nombre}} {{amigo.apellidos}}  </ion-col>
-            <ion-col text-right>
-                <button ion-button (click)="irConversacion(amigo.id)" shape="round" size="small">
-                    <ion-icon name="send"></ion-icon>
+            <ion-col text-right >
+                <button ion-button clear (click)="irConversacion(amigo.id)" shape="round" size="small">
+                    <ion-icon name="send" style="zoom:2.0;color: #488aff;"></ion-icon>
                 </button>
             </ion-col>
           </ion-row>

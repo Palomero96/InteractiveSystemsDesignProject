@@ -46,11 +46,13 @@ en el caso del alumno aparecera todal la informacion necesaria para la pagina-->
                             Alumnos Provisionales
                               <ion-item *ngFor="let alumnoProvisional of alumnosProvisional | async let j=index">
                                 <ion-row text-center>
-                                    <ion-col text-center>
+                                    <ion-col >
                                       {{alumnoProvisional.nombre}}
                                     </ion-col>
-                                    <ion-col text-center>
-                                      <button ion-button (click)="addFinalAlumno(i,alumnoProvisional,clase)" shape="small">+</button>  
+                                    <ion-col text-right>
+                                      <button ion-button clear (click)="addFinalAlumno(i,alumnoProvisional,clase)" shape="small">
+                                        <ion-icon name="arrow-dropright" style="zoom:2.0;color: #488aff;"></ion-icon>
+                                      </button>
                                     </ion-col>
                                 </ion-row>
                                 </ion-item>
@@ -61,11 +63,13 @@ en el caso del alumno aparecera todal la informacion necesaria para la pagina-->
                           Alumnos Finales
                             <ion-item *ngFor="let alumnoFinal of alumnosFinal | async let j=index">
                               <ion-row text-center>
-                                  <ion-col text-center>
+                                  <ion-col text-left>
+                                      <button ion-button clear (click)="removeFinalAlumno(i,alumnoFinal,clase)" shape="small">
+                                          <ion-icon name="arrow-dropleft"  style="zoom:2.0;color: #488aff;"></ion-icon>
+                                      </button>  
+                                    </ion-col>
+                                  <ion-col>
                                     {{alumnoFinal.nombre}}
-                                  </ion-col>
-                                  <ion-col text-center>
-                                    <button ion-button (click)="removeFinalAlumno(i,alumnoFinal,clase)" shape="small">-</button>  
                                   </ion-col>
                               </ion-row>
                               </ion-item>
