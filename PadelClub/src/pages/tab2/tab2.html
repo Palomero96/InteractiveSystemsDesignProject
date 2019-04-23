@@ -9,19 +9,32 @@
   <!-- Amigos-->
 <ion-card>
   <ion-card-header>
-      <ion-card-title>Amigos <button ion-button (click)="nuevoAmigo()">Añadir Amigo</button></ion-card-title>
+      <ion-card-title>Amigos</ion-card-title>
   </ion-card-header>
   <ion-card-content>
     <ion-list>
       <ion-item-sliding *ngFor="let amigo of amigosPerfil | async">
         <ion-item>
-          <ion-label>{{amigo.nombre}} {{amigo.apellidos}} <button ion-button (click)="irConversacion(amigo.id)">Mensaje</button></ion-label>
+          <ion-row>
+            <ion-col>{{amigo.nombre}} {{amigo.apellidos}}  </ion-col>
+            <ion-col text-right>
+                <button ion-button (click)="irConversacion(amigo.id)" shape="round" size="small">
+                    <ion-icon name="send"></ion-icon>
+                </button>
+            </ion-col>
+          </ion-row>
         </ion-item>
         <ion-item-options side="right">
             <button ion-button (click)="eliminarAmigo(amigo.id)">Eliminar</button>
         </ion-item-options>
+        <hr style="width:75%;">
       </ion-item-sliding>
     </ion-list>
   </ion-card-content>
 </ion-card>
+<ion-fab bottom center #fab>
+  <button ion-fab (click)="nuevoAmigo()">
+    +
+  </button> 
+</ion-fab>
 </ion-content>
