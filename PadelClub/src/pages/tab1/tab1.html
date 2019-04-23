@@ -1,39 +1,48 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Mi Calendario
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+      <ion-title>
+        Mi Calendario
+      </ion-title>
+    </ion-toolbar>
 </ion-header>
 <ion-content>
-<ion-calendar #calendar lang="es" [events]="eventos" (onDaySelect)="onDaySelect($event)"></ion-calendar>
-<ion-card >
+  <ion-card>
+    <ion-calendar #calendar lang="es" [events]="eventos" (onDaySelect)="onDaySelect($event)"></ion-calendar>
+  </ion-card>
+  <ion-card >
     <ion-card-header>
-      </ion-card-header>
-        <ion-card-content>
-                <ion-list>
-                  <ion-row>
-                    <ion-col text-center>
-                     Tipo
-                    </ion-col>
-                    <ion-col text-center>
-                      Hora
-                    </ion-col>
-                  </ion-row>
-                    <ion-card   *ngFor="let evento of eventosdia" >
-                      <ion-card-content >
-                        <ion-row>
-                          <ion-col text-center>
-                            <strong>{{evento.tipo}}</strong>
-                          </ion-col>
-                          <ion-col  text-center>
-                            <strong>{{evento.hora}}</strong>
-                          </ion-col>
-                        </ion-row>
-                      </ion-card-content>
-                    </ion-card>
-                </ion-list>
-        </ion-card-content>
+      <ion-toolbar color="primary">
+        <ion-title>
+          Cita Seleccionada
+        </ion-title>
+      </ion-toolbar>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-card>
+          <ion-row>
+            <ion-col text-center>
+              <strong>Tipo</strong>
+            </ion-col>
+            <ion-col text-center>
+              <strong>Hora</strong>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+        <ion-card *ngFor="let evento of eventosdia">
+          <ion-card-content>
+            <ion-row>
+              <ion-col text-center>
+                {{evento.tipo}}
+              </ion-col>
+              <ion-col  text-center>
+                {{evento.hora}}
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-list>
+    </ion-card-content>
   </ion-card>
 </ion-content>
-
+  
