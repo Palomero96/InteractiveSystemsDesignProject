@@ -4,6 +4,7 @@ import { Reserva } from '../../models/reserva.model';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { CrearReservaPage } from '../crear-reserva/crear-reserva';
 
 
 @IonicPage()
@@ -23,11 +24,7 @@ export class Tab4Page {
   
 
   crearReserva(){
-      const myModalOptions: ModalOptions = {
-        enableBackdropDismiss: false
-      }
-      const myModal = this.crearReservaMod.create('CrearReservaPage', { }, myModalOptions);
-      myModal.present();
+    this.navCtrl.setRoot(CrearReservaPage);
   }
   ionViewWillEnter() {
     this.afAuth.authState.take(1).subscribe( async data=>{

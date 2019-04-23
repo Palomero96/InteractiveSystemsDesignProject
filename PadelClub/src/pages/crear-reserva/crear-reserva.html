@@ -1,15 +1,18 @@
 
 <ion-header>
+    <ion-toolbar color="primary">
   <ion-navbar>
     <ion-title>Reservar Hora</ion-title>
     <ion-buttons end>
         <button ion-button (click)="volver()">Cerrar</button>
       </ion-buttons>
+      
   </ion-navbar>
-
+</ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-label>La Reserva debe realizarse con un dia de antelacion</ion-label>
     <ion-label>Mes:<ion-input type="number" min="1" max="12" [(ngModel)]="mes" name="mes" placeholder="Seleccione un Mes"> </ion-input>
     </ion-label>
       <ion-label>Dia:<ion-input type="number" min="1" max="31" [(ngModel)]="dia" name="dia" placeholder="Seleccione un Dia"> </ion-input>

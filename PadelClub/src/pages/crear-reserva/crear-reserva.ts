@@ -69,7 +69,7 @@ export class CrearReservaPage {
                 this.reservaAux = await action.payload.val();
                   if(this.reservaAux==null){
                     this.afDataBase.object(`reserva/${this.Reserva.reservaid}`).set(this.Reserva);
-                    this.view.dismiss();
+                    this.navCtrl.setRoot(Tab4Page);
                   }else{
                     this.toast.create({
                       message: `Este horario esta ya reservado`,
@@ -95,7 +95,7 @@ export class CrearReservaPage {
               this.reservaAux = await action.payload.val();
               if(this.reservaAux==null){
                   this.afDataBase.object(`reserva/${this.Reserva.reservaid}`).set(this.Reserva);
-                  this.view.dismiss();
+                  this.navCtrl.setRoot(Tab4Page);
                 }else{
                   this.toast.create({
                     message: `Este horario esta ya reservado`,
@@ -125,7 +125,8 @@ export class CrearReservaPage {
     
   }
   volver(){
-    this.view.dismiss();
+    this.navCtrl.setRoot(Tab4Page);
+  
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad CrearReservaPage');

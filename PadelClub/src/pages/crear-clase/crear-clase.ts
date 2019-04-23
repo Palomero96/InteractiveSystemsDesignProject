@@ -61,11 +61,14 @@ export class CrearClasePage {
     this.afAuth.authState.take(1).subscribe(auth => {
       this.afDataBase.object(`clase/${this.datosClase.claseid}`).set(this.datosClase);
     })
-    this.view.dismiss();
+
+    this.navCtrl.setRoot(Tab3Page);
   }
 
-  volver(){
-    this.view.dismiss();
+  
+  volver()
+  {
+    this.navCtrl.setRoot(Tab3Page);
   }
 
 }

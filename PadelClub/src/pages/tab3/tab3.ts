@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Contact } from '../../models/contact.model';
+import { CrearClasePage } from '../crear-clase/crear-clase';
 
 @IonicPage()
 @Component({
@@ -59,21 +60,7 @@ export class Tab3Page {
   }
 
   crearClase() {
-    if (this.esProfesor) {
-      const myModalOptions: ModalOptions = {
-        enableBackdropDismiss: false
-      }
-
-      this.myUserData = {
-        userId: 'profesor1',
-        userName: 'nombre_profesor1',
-      }
-
-      const myModal = this.crearClaseMod.create('CrearClasePage', { data: this.myUserData }, myModalOptions);
-      
-      myModal.present();
-    }
-
+      this.navCtrl.setRoot(CrearClasePage);
   }
     
   unirAUnaClase(objClase)
