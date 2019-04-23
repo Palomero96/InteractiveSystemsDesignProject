@@ -80,7 +80,8 @@ export class ConversacionPage {
       })
     
   }
-  ionViewWillLeave(){
+  volver()
+  {
     this.navCtrl.setRoot(Tab2Page);
-   }
+  }
 }
