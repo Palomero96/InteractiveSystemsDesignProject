@@ -1,18 +1,23 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
+          <button ion-button icon-only (click)="back()" side="left">
+             <ion-icon name="arrow-back"></ion-icon>
+         </button>
+
     <ion-title>
-      <button ion-buttons>
-      <button ion-button icon-only (click)="back()">
-         <ion-icon name="arrow-back"></ion-icon>
-     </button>
-   </button>Añadir Contacto</ion-title>
+
+   Añadir Contacto</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-card>
         <ion-card-header>
-            <ion-card-title>Usuarios</ion-card-title>
+            <ion-toolbar color="primary">
+              <ion-title>
+                Lista de Usuarios
+              </ion-title>
+            </ion-toolbar>
         </ion-card-header>
         <ion-card-content>
           <ion-list>

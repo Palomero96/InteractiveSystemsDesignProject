@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
       Amigos
     </ion-title>
@@ -9,8 +9,12 @@
   <!-- Amigos-->
 <ion-card>
   <ion-card-header>
-      <ion-card-title>Amigos</ion-card-title>
-  </ion-card-header>
+      <ion-toolbar color="primary">
+        <ion-title>
+            Mis Contactos
+        </ion-title>
+      </ion-toolbar>
+    </ion-card-header>
   <ion-card-content>
     <ion-list>
       <ion-item-sliding *ngFor="let amigo of amigosPerfil | async">

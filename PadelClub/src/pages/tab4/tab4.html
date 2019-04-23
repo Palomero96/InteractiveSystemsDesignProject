@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
       Reservas
     </ion-title>
@@ -20,13 +20,13 @@ indicando si estan ocupadas o no-->
                 <ion-list>
                   <ion-row>
                     <ion-col text-center>
-                      Hora
+                      <strong>Hora</strong>
                     </ion-col>
                     <ion-col text-center>
-                      Dia
+                      <strong>Día</strong>
                     </ion-col>
                     <ion-col text-center>
-                      Mes
+                      <strong>Mes</strong>
                     </ion-col>
                   </ion-row>
                     <ion-card  *ngFor="let reserva of reservas | async" >
@@ -34,13 +34,13 @@ indicando si estan ocupadas o no-->
                       <ion-card-content >
                         <ion-row>
                           <ion-col text-center>
-                            <strong>{{reserva.hora}}</strong>
+                            {{reserva.hora}}
                           </ion-col>
                           <ion-col  text-center>
-                            <strong>{{reserva.dia}}</strong>
+                            {{reserva.dia}}
                           </ion-col>
                           <ion-col  text-center>
-                            <strong>{{reserva.mes}} </strong>
+                            {{reserva.mes}}
                           </ion-col>
                         </ion-row>
                       </ion-card-content>

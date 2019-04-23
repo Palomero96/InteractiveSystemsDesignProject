@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
       Clases
     </ion-title>
@@ -14,28 +14,30 @@ en el caso del alumno aparecera todal la informacion necesaria para la pagina-->
 <ion-card id="Profesor" *ngIf="this.esProfesor">
   <ion-card-content>
           <ion-list>
-            <ion-row>
-              <ion-col text-center>
-                Día
-              </ion-col>
-              <ion-col text-center>
-                Hora
-              </ion-col>
-              <ion-col text-center>
-                Nivel
-              </ion-col>
-            </ion-row>
+            <ion-card>
+              <ion-row>
+                <ion-col text-center>
+                  <strong>Día</strong>
+                </ion-col>
+                <ion-col text-center>
+                    <strong>Hora</strong>
+                </ion-col>
+                <ion-col text-center>
+                    <strong>Nivel</strong>
+                </ion-col>
+              </ion-row>
+            </ion-card>
               <ion-card  *ngFor="let clase of clases | async let i = index"  >
                 <ion-card-header (click)="ampliarClase(i,clase)" >
                   <ion-row>
                     <ion-col text-center>
-                      <strong>{{clase.dia}}</strong>
+                      {{clase.dia}}
                     </ion-col>
                     <ion-col  text-center>
-                      <strong>{{clase.hora}}</strong>
+                      {{clase.hora}}
                     </ion-col>
                     <ion-col  text-center>
-                      <strong>{{clase.nivel}} </strong>
+                      {{clase.nivel}}
                     </ion-col>
                   </ion-row>
                 </ion-card-header>

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
       {{nombre2}}
     </ion-title>
@@ -13,5 +13,13 @@
       </ion-item>
   </ion-list>
 <!-- Escribir mensaje -->
-<ion-input [(ngModel)]="enviar" name="enviar"></ion-input><button ion-button (click)="enviarMensaje()">Enviar</button>
+  <ion-card>
+    <ion-card-header>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-input [(ngModel)]="enviar" name="enviar" color="primary"></ion-input>
+      <button ion-button (click)="enviarMensaje()">Enviar</button>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
