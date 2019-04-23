@@ -65,7 +65,7 @@ export class CrearClasePage {
   }
 
   volver(){
-    this.navCtrl.setRoot(Tab3Page);
+    this.view.dismiss();
   }
 
 }

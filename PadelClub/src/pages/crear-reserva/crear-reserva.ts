@@ -125,7 +125,7 @@ export class CrearReservaPage {
     
   }
   volver(){
-    this.navCtrl.setRoot(Tab4Page);
+    this.view.dismiss();
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad CrearReservaPage');
