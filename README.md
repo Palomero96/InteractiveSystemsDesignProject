@@ -1,9 +1,9 @@
-# ProyectoDSI
-Este repositorio contiene el proyecto de la asignatura de Diseño de Sistemas Interactivos
+# Interactive Systems Design Project
+This repository contains the project developed for Interactive Systems Design Subject. Th main goal was to develop and app using the theory and the principles learned in class. The application is used to manage the main operations of a padel club.
 
-IMPORTANTE: Hay que añadir la linea automaticDataCollectionEnabled: boolean; debajo del atributo name, en el archivo nodemodules/angularfire2/firebase.app.module.d.ts
+IMPORTANT: Add line "automaticDataCollectionEnabled: boolean;" below attribute name, in nodemodules/angularfire2/firebase.app.module.d.ts
 
-IMPORTANTE 2: Hay que ejecutar el comando npm install --save rxjs-compat desde la terminal, antes de hacer ionic serve.
+IMPORTANT 2: Execute in terminal "npm install --save rxjs-compat", before executing ionic serve
 
 ## Prerequisites
 npm install ionic3-calendar-en --save
